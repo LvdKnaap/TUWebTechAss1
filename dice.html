@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<title>
+Let's play yathzee!
+</title>
+<head>
+    <style type = "text/css">
+        div.dice{
+            float: left;
+            width: 50px;
+            height: 50px;
+            border: #999 1px solid;
+            padding: 10px;
+            font-size: 40px;
+            text-align: center;
+            margin: 5px;
+        }
+        
+    </style>
+</head>
+
+<body>
+<h1> Click button below to roll dice</h1>
+<div id="die1" class = "dice">?</div>
+<div id="die2" class = "dice">?</div>
+<div id="die3" class = "dice">?</div>
+<div id="die4" class = "dice">?</div>
+<div id="die5" class = "dice">?</div>
+<div id = "remainingThrows" style = "clear:left;">Remaining throws: 3</div> 
+<button onclick="throwDice()"><h3>Click here to throw!</h3></button>
+
+<h1 id = "yahtzeeThrown" style = "display:none">YAHTZEE MET LOUTER ZESSEN: MAZZELPIK</h1>
+
+
+<script src="dice.js"></script>
+</body>
+<footer>
+
+</footer>
+</html>
