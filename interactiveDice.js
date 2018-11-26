@@ -6,7 +6,7 @@ let bonusUnlockedPlayer1 = false;
 
 
 function throwDice() {
-    if (throwsLeft > -10) {
+    if (throwsLeft > 0) {
         for (let i = 0; i < selected.length; i++) {
             if (!selected[i]) {
                 let dieName = "die" + (i + 1);
@@ -18,7 +18,7 @@ function throwDice() {
         throwsLeft--;
         remainingThrows.innerHTML = 'Remaining throws: ' + throwsLeft;
     } else {
-        window.alert("No more throws left");
+        window.alert("No more throws left. Select a category below.");
     }
     document.getElementById("clickDiceToHold").style.display = 'block';
     showPotentialScores();
