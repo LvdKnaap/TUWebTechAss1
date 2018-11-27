@@ -24,14 +24,15 @@ function throwDice() {
 }
 
 function selectDeselect(i) {
-    let dieName = "die" + (i + 1);
-    if (selected[i]) {
-        selected[i] = false;
-        document.getElementById(dieName).style.background = 'red';
-
-    } else {
-        selected[i] = true;
-        document.getElementById(dieName).style.background = 'lightgrey';
+    if (currDice[0] != 0) {
+        let dieName = "die" + (i + 1);
+        if (selected[i]) {
+            selected[i] = false;
+            document.getElementById(dieName).style.background = 'red';
+        } else {
+            selected[i] = true;
+            document.getElementById(dieName).style.background = 'lightgrey';
+        }
     }
 }
 
@@ -74,7 +75,7 @@ function numbers(s) { // s = {0,...,5}
     if (checkWhetherWeCanSelectACategory()) {
         let strL;
         let strU;
-        switch(s) {
+        switch (s) {
             case 0:
                 strL = 'ones'; strU = 'Ones'; // strL denotes lowercase, strU uppercase
                 break;
@@ -96,8 +97,8 @@ function numbers(s) { // s = {0,...,5}
         }
         strL = strL + 'Player1';
         strU = 'button' + strU;
-        
-        let score = 0; let value = s+1; // value voor copy/pasten, is 2 voor twos etc
+
+        let score = 0; let value = s + 1; // value voor copy/pasten, is 2 voor twos etc
         for (let i = 0; i < selected.length; i++) {
             if (currDice[i] == value) {
                 score += value;
@@ -117,6 +118,7 @@ function numbers(s) { // s = {0,...,5}
         }
         categorySelected();
         document.getElementById(strU).disabled = true;
+        document.getElementById(strL).style.color = 'red'; // change to green if css implemented
     }
 }
 
@@ -139,7 +141,7 @@ function smallStraight() {
         if (kleineStraat) {
             smallStraightPlayer1.innerHTML = 30;
         } else {
-            smallStraightPlayer1 = 0;
+            smallStraightPlayer1.innerHTML = 0;
         }
         categorySelected();
         document.getElementById("buttonSmallStraight").disabled = true;
@@ -158,10 +160,47 @@ function largeStraight() {
         if (groteStraat) {
             largeStraightPlayer1.innerHTML = 30;
         } else {
-            largeStraightPlayer1 = 0;
+            largeStraightPlayer1.innerHTML = 0;
         }
         categorySelected();
         document.getElementById("buttonLargeStraight").disabled = true;
+    }
+}
+
+function fullHouse() {
+    if (checkWhetherWeCanSelectACategory()) {
+        let fullHouse = false;
+
+        let highDice = 0; let lowDice = 7;
+        for (let i = 0; i < currDice.length; i++) {
+            if (currDice[i] > highDice[i]) {
+                highDice[i] = currDice[i];
+            }
+            if (currDice[i] < lowDice[i]) {
+                lowDice[i] = currDice[i];
+            }
+        }
+        let highCount = 0; let lowCount = 0;
+        for (let i = 0; i < currDice.length; i++) {
+            if (currDice[i] == highDice[i]) {
+                highCount++;
+            }
+            if (currDice[i] == lowDice[i]) {
+                lowCount++;
+            }
+        }
+
+        if (highCount == 3 && lowCount == 2 || highCount == 2 && lowCount == 3) {
+            fullHouse = true;
+        }
+        
+        if (groteStraat) {
+            fullHousePlayer1.innerHTML = 30;
+        } else {
+            fullHousePlayer1.innerHTML = 0;
+        }
+        categorySelected();
+        document.getElementById("buttonFullHouse").disabled = true;
     }
 }
 
