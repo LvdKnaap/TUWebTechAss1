@@ -4,7 +4,6 @@ let currDice = [0, 0, 0, 0, 0];
 let upperScore = 0; let lowerScore = 0;
 let bonusUnlockedPlayer1 = false;
 
-
 function throwDice() {
     if (throwsLeft > 0) {
         for (let i = 0; i < selected.length; i++) {
