@@ -28,7 +28,7 @@ function selectDeselect(i) {
     if (selected[i]) {
         selected[i] = false;
         document.getElementById(dieName).style.background = 'red';
-
+        
     } else {
         selected[i] = true;
         document.getElementById(dieName).style.background = 'lightgrey';
