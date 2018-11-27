@@ -5,7 +5,7 @@ let upperScore = 0; let lowerScore = 0;
 let bonusUnlockedPlayer1 = false;
 
 function throwDice() {
-    if (throwsLeft > 0) {
+    if (throwsLeft > -100) {
         for (let i = 0; i < selected.length; i++) {
             if (!selected[i]) {
                 let dieName = "die" + (i + 1);
@@ -36,6 +36,14 @@ function selectDeselect(i) {
     }
 }
 
+function deselectAll() {
+    for (let i = 0; i < selected.length; i++) {
+        let dieName = "die" + (i + 1);
+        selected[i] = false;
+        document.getElementById(dieName).style.background = 'red';
+    }
+}
+
 function categorySelected() {
     throwsLeft = 3;
     remainingThrows.innerHTML = 'Remaining throws: ' + throwsLeft;
@@ -44,8 +52,8 @@ function categorySelected() {
         document.getElementById(dieName).value = "?";
         currDice[i] = 0;
         selected[i] = true; // icm met volgende line gaan ook de kleuren weer terug naar rood
-        selectDeselect(i);
     }
+    deselectAll();
 }
 /*
 function showPotentialScores() {
@@ -173,29 +181,29 @@ function fullHouse() {
 
         let highDice = 0; let lowDice = 7;
         for (let i = 0; i < currDice.length; i++) {
-            if (currDice[i] > highDice[i]) {
-                highDice[i] = currDice[i];
+            if (currDice[i] > highDice) {
+                highDice = currDice[i];
             }
-            if (currDice[i] < lowDice[i]) {
-                lowDice[i] = currDice[i];
+            if (currDice[i] < lowDice) {
+                lowDice = currDice[i];
             }
         }
         let highCount = 0; let lowCount = 0;
         for (let i = 0; i < currDice.length; i++) {
-            if (currDice[i] == highDice[i]) {
+            if (currDice[i] == highDice) {
                 highCount++;
             }
-            if (currDice[i] == lowDice[i]) {
+            if (currDice[i] == lowDice) {
                 lowCount++;
             }
         }
 
-        if (highCount == 3 && lowCount == 2 || highCount == 2 && lowCount == 3) {
+        if ((highCount == 3 && lowCount == 2) || (highCount == 2 && lowCount == 3)) {
             fullHouse = true;
         }
-        
-        if (groteStraat) {
-            fullHousePlayer1.innerHTML = 30;
+
+        if (fullHouse) {
+            fullHousePlayer1.innerHTML = 25;
         } else {
             fullHousePlayer1.innerHTML = 0;
         }
@@ -203,145 +211,3 @@ function fullHouse() {
         document.getElementById("buttonFullHouse").disabled = true;
     }
 }
-
-
-/*
-function ones() {
-    if (checkWhetherWeCanSelectACategory()) {
-        let score = 0; let value = 1; // value voor copy/pasten, is 2 voor twos etc
-        for (let i = 0; i < selected.length; i++) {
-            if (currDice[i] == value) {
-                score += value;
-            }
-        }
-        onesPlayer1.innerHTML = score;
-        upperScore += score;
-        totalUpperScorePlayer1.innerHTML = upperScore;
-        totalRemainingPointsBonus.innerHTML = Math.max(0, 63 - upperScore);
-        if (upperScore >= 63 && !bonusUnlockedPlayer1) {
-            bonusScorePlayer1.innerHTML = 35;
-            upperScore += 35;
-            bonusUnlockedPlayer1 = true;
-            totalUpperScorePlayer1.innerHTML = upperScore;
-        }
-        categorySelected();
-        document.getElementById("buttonOnes").disabled = true;
-    }
-}
-
-function twos() {
-    if (checkWhetherWeCanSelectACategory()) {
-        let score = 0; let value = 2; // value voor copy/pasten, is 2 voor twos etc
-        for (let i = 0; i < selected.length; i++) {
-            if (currDice[i] == value) {
-                score += value;
-            }
-        }
-        twosPlayer1.innerHTML = score;
-        upperScore += score;
-        totalUpperScorePlayer1.innerHTML = upperScore;
-        totalRemainingPointsBonus.innerHTML = Math.max(0, 63 - upperScore);
-        if (upperScore >= 63 && !bonusUnlockedPlayer1) {
-            bonusScorePlayer1.innerHTML = 35;
-            upperScore += 35;
-            bonusUnlockedPlayer1 = true;
-            totalUpperScorePlayer1.innerHTML = upperScore;
-        }
-        categorySelected();
-        document.getElementById("buttonTwos").disabled = true;
-    }
-}
-
-function threes() {
-    if (checkWhetherWeCanSelectACategory()) {
-        let score = 0; let value = 3; // value voor copy/pasten, is 2 voor twos etc
-        for (let i = 0; i < selected.length; i++) {
-            if (currDice[i] == value) {
-                score += value;
-            }
-        }
-        threesPlayer1.innerHTML = score;
-        upperScore += score;
-        totalUpperScorePlayer1.innerHTML = upperScore;
-        totalRemainingPointsBonus.innerHTML = Math.max(0, 63 - upperScore);
-        if (upperScore >= 63 && !bonusUnlockedPlayer1) {
-            bonusScorePlayer1.innerHTML = 35;
-            upperScore += 35;
-            bonusUnlockedPlayer1 = true;
-            totalUpperScorePlayer1.innerHTML = upperScore;
-        }
-        categorySelected();
-        document.getElementById("buttonThrees").disabled = true;
-    }
-}
-
-function fours() {
-    if (checkWhetherWeCanSelectACategory()) {
-        let score = 0; let value = 4; // value voor copy/pasten, is 2 voor twos etc
-        for (let i = 0; i < selected.length; i++) {
-            if (currDice[i] == value) {
-                score += value;
-            }
-        }
-        foursPlayer1.innerHTML = score;
-        upperScore += score;
-        totalUpperScorePlayer1.innerHTML = upperScore;
-        totalRemainingPointsBonus.innerHTML = Math.max(0, 63 - upperScore);
-        if (upperScore >= 63 && !bonusUnlockedPlayer1) {
-            bonusScorePlayer1.innerHTML = 35;
-            upperScore += 35;
-            bonusUnlockedPlayer1 = true;
-            totalUpperScorePlayer1.innerHTML = upperScore;
-        }
-        categorySelected();
-        document.getElementById("buttonFours").disabled = true;
-    }
-}
-
-function fives() {
-    if (checkWhetherWeCanSelectACategory()) {
-        let score = 0; let value = 5; // value voor copy/pasten, is 2 voor twos etc
-        for (let i = 0; i < selected.length; i++) {
-            if (currDice[i] == value) {
-                score += value;
-            }
-        }
-        fivesPlayer1.innerHTML = score;
-        upperScore += score;
-        totalUpperScorePlayer1.innerHTML = upperScore;
-        totalRemainingPointsBonus.innerHTML = Math.max(0, 63 - upperScore);
-        if (upperScore >= 63 && !bonusUnlockedPlayer1) {
-            bonusScorePlayer1.innerHTML = 35;
-            upperScore += 35;
-            bonusUnlockedPlayer1 = true;
-            totalUpperScorePlayer1.innerHTML = upperScore;
-        }
-        categorySelected();
-        document.getElementById("buttonFives").disabled = true;
-    }
-}
-
-function sixes() {
-    if (checkWhetherWeCanSelectACategory()) {
-        let score = 0; let value = 6; // value voor copy/pasten, is 2 voor twos etc
-        for (let i = 0; i < selected.length; i++) {
-            if (currDice[i] == value) {
-                score += value;
-            }
-        }
-        sixesPlayer1.innerHTML = score;
-        upperScore += score;
-        totalUpperScorePlayer1.innerHTML = upperScore;
-        totalRemainingPointsBonus.innerHTML = Math.max(0, 63 - upperScore);
-        if (upperScore >= 63 && !bonusUnlockedPlayer1) {
-            bonusScorePlayer1.innerHTML = 35;
-            upperScore += 35;
-            bonusUnlockedPlayer1 = true;
-            totalUpperScorePlayer1.innerHTML = upperScore;
-        }
-        categorySelected();
-        document.getElementById("buttonSixes").disabled = true;
-    }
-}
-*/
-
