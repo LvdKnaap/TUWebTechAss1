@@ -17,7 +17,7 @@
             Turn
 
 
-GAME:
+#GAME:
 - Active games statistic
 - increase times that yahtzee played by one
 - keep track of the duration
