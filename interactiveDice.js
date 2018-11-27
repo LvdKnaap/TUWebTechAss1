@@ -20,7 +20,7 @@ function throwDice() {
         window.alert("No more throws left. Select a category below.");
     }
     document.getElementById("clickDiceToHold").style.display = 'block';
-    showPotentialScores();
+    //showPotentialScores();
 }
 
 function selectDeselect(i) {
@@ -70,6 +70,103 @@ function checkWhetherWeCanSelectACategory() {
     }
 }
 
+function numbers(s) { // s = {0,...,5}
+    if (checkWhetherWeCanSelectACategory()) {
+        let strL;
+        let strU;
+        switch(s) {
+            case 0:
+                strL = 'ones'; strU = 'Ones'; // strL denotes lowercase, strU uppercase
+                break;
+            case 1:
+                strL = 'twos'; strU = 'Twos';
+                break;
+            case 2:
+                strL = 'threes'; strU = 'Threes';
+                break;
+            case 3:
+                strL = 'fours'; strU = 'Fours';
+                break;
+            case 4:
+                strL = 'fives'; strU = 'Fives';
+                break;
+            default:
+                strL = 'sixes'; strU = 'Sixes';
+                break;
+        }
+        strL = strL + 'Player1';
+        strU = 'button' + strU;
+        
+        let score = 0; let value = s+1; // value voor copy/pasten, is 2 voor twos etc
+        for (let i = 0; i < selected.length; i++) {
+            if (currDice[i] == value) {
+                score += value;
+            }
+        }
+        console.log(strL);
+        console.log(strU);
+        document.getElementById(strL).innerHTML = score;
+        upperScore += score;
+        totalUpperScorePlayer1.innerHTML = upperScore;
+        totalRemainingPointsBonus.innerHTML = Math.max(0, 63 - upperScore);
+        if (upperScore >= 63 && !bonusUnlockedPlayer1) {
+            bonusScorePlayer1.innerHTML = 35;
+            upperScore += 35;
+            bonusUnlockedPlayer1 = true;
+            totalUpperScorePlayer1.innerHTML = upperScore;
+        }
+        categorySelected();
+        document.getElementById(strU).disabled = true;
+    }
+}
+
+
+function smallStraight() {
+    if (checkWhetherWeCanSelectACategory()) {
+        let kleineStraat = false;
+        // alle opties voor kleine straat: 1-2-3-4, 2-3-4-5, 3-4-5-6 
+        if (currDice.includes(3) && currDice.includes(4)) {
+            if (currDice.includes(1) && currDice.includes(2)) {
+                kleineStraat = true;
+            }
+            if (currDice.includes(2) && currDice.includes(5)) {
+                kleineStraat = true;
+            }
+            if (currDice.includes(5) && currDice.includes(6)) {
+                kleineStraat = true;
+            }
+        }
+        if (kleineStraat) {
+            smallStraightPlayer1.innerHTML = 30;
+        } else {
+            smallStraightPlayer1 = 0;
+        }
+        categorySelected();
+        document.getElementById("buttonSmallStraight").disabled = true;
+    }
+}
+
+function largeStraight() {
+    if (checkWhetherWeCanSelectACategory()) {
+        let groteStraat = false;
+        // alle opties voor kleine straat: 1-2-3-4-5, 2-3-4-5-6
+        if (currDice.includes(2) && currDice.includes(3) && currDice.includes(4) && currDice.includes(5)) {
+            if (currDice.includes(1) || currDice.includes(6)) {
+                groteStraat = true;
+            }
+        }
+        if (groteStraat) {
+            largeStraightPlayer1.innerHTML = 30;
+        } else {
+            largeStraightPlayer1 = 0;
+        }
+        categorySelected();
+        document.getElementById("buttonLargeStraight").disabled = true;
+    }
+}
+
+
+/*
 function ones() {
     if (checkWhetherWeCanSelectACategory()) {
         let score = 0; let value = 1; // value voor copy/pasten, is 2 voor twos etc
@@ -207,29 +304,5 @@ function sixes() {
         document.getElementById("buttonSixes").disabled = true;
     }
 }
-
-function smallStraight() {
-    if (checkWhetherWeCanSelectACategory()) {
-        let kleineStraat = false;
-        // alle opties voor kleine straat: 1-2-3-4, 2-3-4-5, 3-4-5-6 
-        if (currDice.includes(3) && currDice.includes(4)) {
-            if (currDice.includes(1) && currDice.includes(2)) {
-                kleineStraat = true;
-            }
-            if (currDice.includes(2) && currDice.includes(5)) {
-                kleineStraat = true;
-            }
-            if (currDice.includes(5) && currDice.includes(6)) {
-                kleineStraat = true;
-            }
-        }
-        if (kleineStraat) {
-            smallStraightPlayer1.innerHTML = 30;
-        } else {
-            smallStraightPlayer1 = 0;
-        }
-        categorySelected();
-        document.getElementById("buttonSmallStraight").disabled = true;
-    }
-}
+*/
 
