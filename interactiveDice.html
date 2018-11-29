@@ -6,164 +6,208 @@
 <!DOCTYPE html>
 <html>
 <title>
-    Let's play yahtzee!
+  Let's play yahtzee!
 </title>
-<head>
-    <style type = "text/css">
-        .dobbelstenen input {
-            background-color: red; 
-            border: none;
-            color: black;
-            font-weight: bold;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 32px;
-        } 
-        
-        input { /* cursor weer "normaal" maken als button disabled is*/
-            cursor: pointer;
-        }
 
-    </style>
+<head>
+  <style type="text/css">
+    .dobbelstenen input {
+      background-color: red;
+      border: none;
+      color: black;
+      font-weight: bold;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 32px;
+    }
+
+    input {
+      /* cursor weer "normaal" maken als button disabled is*/
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <h1>YAHTZEE</h1>
-            <nav>
-                <a href="https://en.wikipedia.org/wiki/Yahtzee#Rules">How to play</a> |
-                <a href="https://en.wikipedia.org/w/index.php?title=Yahtzee&action=edit&section=2">Make your own rules</a> |
-                <a href="http://www.virtualcointoss.com/">About the authors</a>
-            </nav>
-    </header>
-    <main>
-        <h1> Click button below to roll dice</h1>
-        <section class = 'dobbelstenen'>
-            <input type="button" value= "?" id="die1" onclick = selectDeselect(0)></input>
-            <input type="button" value= "?" id="die2" onclick = selectDeselect(1)></input> 
-            <input type="button" value= "?" id="die3" onclick = selectDeselect(2)></input> 
-            <input type="button" value= "?" id="die4" onclick = selectDeselect(3)></input> 
-            <input type="button" value= "?" id="die5" onclick = selectDeselect(4)></input>
-        </section>
-        <p id = "clickDiceToHold" style = "display:none">Click on a dice to hold it</p> 
-        
-
-        <div id = "remainingThrows" style = "clear:left;">Remaining throws: 3</div> 
-        <input type="button" value= "Click here to throw" onclick = throwDice()></input>
-
-        <script src="interactiveDice.js"></script>
-
-        <table style="width:50%">
-                <tr>
-                  <th>Category</th>
-                  <th>Player 1</th> 
-                  <th>Player 2</th>
-                </tr>
-                <tr>
-                  <td><input type="button" value= "Ones" id="buttonOnes" onclick = numbers(0)></input></td>
-                  <td><div id = "onesPlayer1"></div></td> 
-                  <td><p id = "onesPlayer2"></p></td>
-                </tr>
-
-                <tr>
-                  <td><input type="button" value= "Twos" id="buttonTwos" onclick = numbers(1)></input></td>
-                  <td><div id = "twosPlayer1"></div></td> 
-                  <td></td>
-                </tr>
-                <tr>
-                    <td><input type="button" color = green value= "Threes" id="buttonThrees" onclick = numbers(2)></input></td>
-                    <td><div id = "threesPlayer1"></div></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><input type="button" value= "Fours" id="buttonFours" onclick = numbers(3)></input></td>
-                    <td><div id = "foursPlayer1"></div></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><input type="button" value= "Fives" id="buttonFives" onclick = numbers(4)></input></td>
-                    <td><div id = "fivesPlayer1"></div></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><input type="button" value= "Sixes" id="buttonSixes" onclick = numbers(5)></input></td>
-                    <td><div id = "sixesPlayer1"></div></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><p>Remaining points for bonus</p></td>
-                    <td><div id = "totalRemainingPointsBonus">63</div></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Bonus score</td>
-                    <td><div id = "bonusScorePlayer1"></div></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><p>Total Upper Score</p></td>
-                    <td><div id = "totalUpperScorePlayer1"></div></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Three of a kind</td>
-                    <td></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Four of a kind</td>
-                    <td></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td><input type="button" value= "Full house" id="buttonFullHouse" onclick = fullHouse()></input></td>
-                    <td><div id = "fullHousePlayer1"></div></td>  
-                    <td></td>
-                  </tr>
-                  </tr>
-                  <tr>
-                    <td><input type="button" value= "Small straight" id="buttonSmallStraight" onclick = smallStraight()></input></td>
-                    <td><div id = "smallStraightPlayer1"></div></td>  
-                    <td></td>
-                  </tr>
-                  <tr>
-                      <td><input type="button" value= "Large straight" id="buttonLargeStraight" onclick = largeStraight()></input></td>
-                      <td><div id = "largeStraightPlayer1">0</div></td>  
-                      <td></td>
-                    </tr>
-                  <tr>
-                    <td>Yahtzee</td>
-                    <td></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Chance</td>
-                    <td></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Yahtzee bonus</td>
-                    <td></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Total lower score</td>
-                    <td></td> 
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>TOTAL</td>
-                    <td></td> 
-                    <td></td>
-                  </tr>                
-              </table>
+  <header>
+    <h1>YAHTZEE</h1>
+    <nav>
+      <a href="https://en.wikipedia.org/wiki/Yahtzee#Rules">How to play</a> |
+      <a href="https://en.wikipedia.org/w/index.php?title=Yahtzee&action=edit&section=2">Make your own rules</a> |
+      <a href="http://www.virtualcointoss.com/">About the authors</a>
+    </nav>
+  </header>
+  <main>
+    <h1> Click button below to roll dice</h1>
+    <section class='dobbelstenen'>
+      <input type="button" value="?" id="die1" onclick=selectDeselect(0)></input>
+      <input type="button" value="?" id="die2" onclick=selectDeselect(1)></input>
+      <input type="button" value="?" id="die3" onclick=selectDeselect(2)></input>
+      <input type="button" value="?" id="die4" onclick=selectDeselect(3)></input>
+      <input type="button" value="?" id="die5" onclick=selectDeselect(4)></input>
+    </section>
+    <p id="clickDiceToHold" style="display:none">Click on a dice to hold it</p>
 
 
-    </main>
-    <footer>
+    <div id="remainingThrows" style="clear:left;">Remaining throws: 3</div>
+    <input type="button" value="Click here to throw" onclick=throwDice()></input>
+
+    <script src="interactiveDice.js"></script>
+
+    <table style="width:50%">
+      <tr>
+        <th>Category</th>
+        <th>Player 1</th>
+        <th>Player 2</th>
+      </tr>
+      <tr>
+        <td><input type="button" value="Ones" id="buttonOnes" onclick=numbers(0)></input></td>
+        <td>
+          <div id="onesPlayer1"></div>
+        </td>
+        <td>
+          <p id="onesPlayer2"></p>
+        </td>
+      </tr>
+
+      <tr>
+        <td><input type="button" value="Twos" id="buttonTwos" onclick=numbers(1)></input></td>
+        <td>
+          <div id="twosPlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><input type="button" color=green value="Threes" id="buttonThrees" onclick=numbers(2)></input></td>
+        <td>
+          <div id="threesPlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><input type="button" value="Fours" id="buttonFours" onclick=numbers(3)></input></td>
+        <td>
+          <div id="foursPlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><input type="button" value="Fives" id="buttonFives" onclick=numbers(4)></input></td>
+        <td>
+          <div id="fivesPlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><input type="button" value="Sixes" id="buttonSixes" onclick=numbers(5)></input></td>
+        <td>
+          <div id="sixesPlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>
+          <p>Remaining points for bonus</p>
+        </td>
+        <td>
+          <div id="totalRemainingPointsBonus">63</div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Bonus score</td>
+        <td>
+          <div id="bonusScorePlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>
+          <p>Total Upper Score</p>
+        </td>
+        <td>
+          <div id="totalUpperScorePlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+          <td><input type="button" value="Three of a kind" id="buttonThreeOfAKind" onclick=threeOfAKind()></input></td>
+          <td>
+            <div id="threeOfAKindPlayer1"></div>
+          </td>
+          <td></td>
+        </tr>
+      <tr>
+          <td><input type="button" value="Four of a kind" id="buttonFourOfAKind" onclick=fourOfAKind()></input></td>
+          <td>
+            <div id="fourOfAKindPlayer1"></div>
+          </td>
+          <td></td>
+        </tr>
+      <tr>
+        <td><input type="button" value="Full house" id="buttonFullHouse" onclick=fullHouse()></input></td>
+        <td>
+          <div id="fullHousePlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      </tr>
+      <tr>
+        <td><input type="button" value="Small straight" id="buttonSmallStraight" onclick=smallStraight()></input></td>
+        <td>
+          <div id="smallStraightPlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><input type="button" value="Large straight" id="buttonLargeStraight" onclick=largeStraight()></input></td>
+        <td>
+          <div id="largeStraightPlayer1"></div>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+          <td><input type="button" value="Yahtzee" id="buttonYahtzee" onclick=yahtzee()></input></td>
+          <td>
+            <div id="yahtzeePlayer1"></div>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="Chance" id="buttonChance" onclick=chance()></input></td>
+            <td>
+              <div id="chancePlayer1"></div>
+            </td>
+            <td></td>
+          </tr>
+      <tr>
+        <td>Yahtzee bonus</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Total lower score</td>
+        <td>
+        <div id="totalLowerScorePlayer1"></div>
+      </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>TOTAL</td>
+        <td>
+        <div id="totalScorePlayer1"></div>
+      </td>
+        <td></td>
+      </tr>
+    </table>
+
+
+  </main>
+  <footer>
     <p> This is the footer</p>
-    </footer>
+  </footer>
 </body>
+
 </html>

@@ -2,7 +2,9 @@ let throwsLeft = 3;
 let selected = [false, false, false, false, false];
 let currDice = [0, 0, 0, 0, 0];
 let upperScore = 0; let lowerScore = 0;
+let totScore = 0;
 let bonusUnlockedPlayer1 = false;
+let selectedCategories = 0;
 
 function throwDice() {
     if (throwsLeft > -100) {
@@ -45,6 +47,10 @@ function deselectAll() {
 }
 
 function categorySelected() {
+    selectedCategories++;
+    if (selectedCategories == 13) {
+        window.alert("congrats, you got " + totScore +  " points");
+    }
     throwsLeft = 3;
     remainingThrows.innerHTML = 'Remaining throws: ' + throwsLeft;
     for (let i = 0; i < selected.length; i++) {
@@ -124,11 +130,16 @@ function numbers(s) { // s = {0,...,5}
             bonusUnlockedPlayer1 = true;
             totalUpperScorePlayer1.innerHTML = upperScore;
         }
+        totScore = lowerScore + upperScore;
+        totalScorePlayer1.innerHTML = totScore;
+
+
         categorySelected();
         document.getElementById(strU).disabled = true;
         document.getElementById(strL).style.color = 'red'; // change to green if css implemented
     }
 }
+
 
 
 function smallStraight() {
@@ -148,11 +159,17 @@ function smallStraight() {
         }
         if (kleineStraat) {
             smallStraightPlayer1.innerHTML = 30;
+            lowerScore += 30;
+            totalLowerScorePlayer1.innerHTML = lowerScore;
         } else {
             smallStraightPlayer1.innerHTML = 0;
         }
+        
+        totScore = lowerScore + upperScore;
+        totalScorePlayer1.innerHTML = totScore;
         categorySelected();
         document.getElementById("buttonSmallStraight").disabled = true;
+        document.getElementById("smallStraightPlayer1").style.color = 'red';
     }
 }
 
@@ -166,12 +183,17 @@ function largeStraight() {
             }
         }
         if (groteStraat) {
-            largeStraightPlayer1.innerHTML = 30;
+            largeStraightPlayer1.innerHTML = 40;
+            lowerScore += 40;
+            totalLowerScorePlayer1.innerHTML = lowerScore;
         } else {
             largeStraightPlayer1.innerHTML = 0;
         }
+        totScore = lowerScore + upperScore;
+        totalScorePlayer1.innerHTML = totScore;
         categorySelected();
         document.getElementById("buttonLargeStraight").disabled = true;
+        document.getElementById("largeStraightPlayer1").style.color = 'red';
     }
 }
 
@@ -204,10 +226,124 @@ function fullHouse() {
 
         if (fullHouse) {
             fullHousePlayer1.innerHTML = 25;
+            lowerScore += 25
+            totalLowerScorePlayer1.innerHTML = lowerScore;
         } else {
             fullHousePlayer1.innerHTML = 0;
         }
+        totScore = lowerScore + upperScore;
+        totalScorePlayer1.innerHTML = totScore;
         categorySelected();
         document.getElementById("buttonFullHouse").disabled = true;
+        document.getElementById("fullHousePlayer1").style.color = 'red';
+    }
+}
+
+function threeOfAKind() {
+    if (checkWhetherWeCanSelectACategory()) {
+        let threeOfAKind = false;
+
+        let currDiceCopy = [];
+        for (let i = 0; i < currDice.length; i++) {
+            currDiceCopy.push(currDice[i]);
+        }
+        currDiceCopy.sort();
+
+        if (currDiceCopy[0] == currDiceCopy[1] && currDiceCopy[1] == currDiceCopy[2]) {
+            threeOfAKind = true;
+        }
+        if (currDiceCopy[1] == currDiceCopy[2] && currDiceCopy[2] == currDiceCopy[3]) {
+            threeOfAKind = true;
+        }
+        if (currDiceCopy[2] == currDiceCopy[3] && currDiceCopy[3] == currDiceCopy[4]) {
+            threeOfAKind = true;
+        }
+        console.log(threeOfAKind);
+        if (threeOfAKind) {
+            let som = 0;
+            for (let i = 0; i < currDice.length; i++) {
+                som += currDice[i];
+            }
+            threeOfAKindPlayer1.innerHTML = som;
+            lowerScore += som;
+            totalLowerScorePlayer1.innerHTML = lowerScore;
+        } else {
+            threeOfAKindPlayer1.innerHTML = 0;
+        }
+        totScore = lowerScore + upperScore;
+        totalScorePlayer1.innerHTML = totScore;
+        categorySelected();
+        document.getElementById("buttonThreeOfAKind").disabled = true;
+        document.getElementById("threeOfAKindPlayer1").style.color = 'red';
+    }
+}
+
+function fourOfAKind() {
+    if (checkWhetherWeCanSelectACategory()) {
+        let fourOfAKind = false;
+
+        let currDiceCopy = [];
+        for (let i = 0; i < currDice.length; i++) {
+            currDiceCopy.push(currDice[i]);
+        }
+        currDiceCopy.sort();
+
+        if (currDiceCopy[0] == currDiceCopy[1] && currDiceCopy[1] == currDiceCopy[2] && currDiceCopy[2] == currDiceCopy[3]) {
+            fourOfAKind = true;
+        }
+        if (currDiceCopy[1] == currDiceCopy[2] && currDiceCopy[2] == currDiceCopy[3] && currDiceCopy[3] == currDiceCopy[4]) {
+            fourOfAKind = true;
+        }
+
+        if (fourOfAKind) {
+            let som = 0;
+            for (let i = 0; i < currDice.length; i++) {
+                som += currDice[i];
+            }
+            fourOfAKindPlayer1.innerHTML = som;
+            lowerScore += som;
+            totalLowerScorePlayer1.innerHTML = lowerScore;
+        } else {
+            fourOfAKindPlayer1.innerHTML = 0;
+        }
+        totScore = lowerScore + upperScore;
+        totalScorePlayer1.innerHTML = totScore;
+        categorySelected();
+        document.getElementById("buttonFourOfAKind").disabled = true;
+        document.getElementById("fourOfAKindPlayer1").style.color = 'red';
+    }
+}
+
+function chance() {
+    if (checkWhetherWeCanSelectACategory()) {
+        let som = 0;
+        for (let i = 0; i < currDice.length; i++) {
+            som += currDice[i];
+        }
+        chancePlayer1.innerHTML = som;
+        lowerScore += som;
+        totalLowerScorePlayer1.innerHTML = lowerScore;
+        totScore = lowerScore + upperScore;
+        totalScorePlayer1.innerHTML = totScore;
+        categorySelected();
+        document.getElementById("buttonChance").disabled = true;
+        document.getElementById("chancePlayer1").style.color = 'red';
+    }
+}
+
+function yahtzee() {
+    if (checkWhetherWeCanSelectACategory()) {
+        if (currDice[0] == currDice[1] && currDice[1] == currDice[2] && currDice[2] == currDice[3] && currDice[3] == currDice[4]) {
+            yahtzeePlayer1.innerHTML = 50; // wat hier
+            lowerScore += currDice[0] + currDice[1] + currDice[2] + currDice[3] + currDice[4];
+            totalLowerScorePlayer1.innerHTML = lowerScore;
+            totScore = lowerScore + upperScore; 
+            totalScorePlayer1.innerHTML = totScore; 
+        } else {
+            yahtzeePlayer1.innerHTML = 0;
+        }
+        categorySelected(); // hier hier hier gaat niet goed
+        document.getElementById("buttonYahtzee").disabled = true; // hier hier hier gaat niet goed
+        document.getElementById("yahtzeePlayer1").style.color = 'red';
     }
 }
