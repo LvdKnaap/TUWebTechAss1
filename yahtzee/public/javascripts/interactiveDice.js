@@ -6,6 +6,8 @@ let totScore = 0;
 let bonusUnlockedPlayer1 = false;
 let selectedCategories = 0;
 let currentScore = 0;
+let lowerScore = 0;
+let upperScore = 0;
 
 function throwDice() {
     if (throwsLeft > 0) {
@@ -143,18 +145,11 @@ function smallStraight() {
             }
         }
         if (kleineStraat) {
-            smallStraightPlayer1.innerHTML = 30;
+            currentScore = 30;
             lowerScore += 30;
-            totalLowerScorePlayer1.innerHTML = lowerScore;
-        } else {
-            smallStraightPlayer1.innerHTML = 0;
-        }
-        
-        totScore = lowerScore + upperScore;
-        totalScorePlayer1.innerHTML = totScore;
+        } 
+
         categorySelected();
-        document.getElementById("buttonSmallStraight").disabled = true;
-        document.getElementById("smallStraightPlayer1").style.color = 'darkred';
     }
 }
 
@@ -168,17 +163,11 @@ function largeStraight() {
             }
         }
         if (groteStraat) {
-            largeStraightPlayer1.innerHTML = 40;
+            currentScore = 40;
             lowerScore += 40;
-            totalLowerScorePlayer1.innerHTML = lowerScore;
-        } else {
-            largeStraightPlayer1.innerHTML = 0;
-        }
-        totScore = lowerScore + upperScore;
-        totalScorePlayer1.innerHTML = totScore;
+        } 
+        
         categorySelected();
-        document.getElementById("buttonLargeStraight").disabled = true;
-        document.getElementById("largeStraightPlayer1").style.color = 'darkred';
     }
 }
 
@@ -210,17 +199,11 @@ function fullHouse() {
         }
 
         if (fullHouse) {
-            fullHousePlayer1.innerHTML = 25;
-            lowerScore += 25
-            totalLowerScorePlayer1.innerHTML = lowerScore;
-        } else {
-            fullHousePlayer1.innerHTML = 0;
+            currentScore = 25;
+            lowerScore += 25;
         }
-        totScore = lowerScore + upperScore;
-        totalScorePlayer1.innerHTML = totScore;
+
         categorySelected();
-        document.getElementById("buttonFullHouse").disabled = true;
-        document.getElementById("fullHousePlayer1").style.color = 'darkred';
     }
 }
 
