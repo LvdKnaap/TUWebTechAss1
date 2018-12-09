@@ -65,15 +65,6 @@ wss.on("connection", function connection(ws) {
     con.send((playerType == "A") ? messages.S_PLAYER_A : messages.S_PLAYER_B);
 
     /*
-     * client B receives the target word (if already available)
-     */ 
-    if(playerType == "B" && currentGame.getWord()!=null){
-        let msg = messages.O_TARGET_WORD;
-        msg.data = currentGame.getWord();
-        con.send(JSON.stringify(msg));
-    }
-
-    /*
      * once we have two players, there is no way back; 
      * a new game object is created;
      * if a player now leaves, the game is aborted (player is not preplaced)
@@ -102,13 +93,27 @@ wss.on("connection", function connection(ws) {
              * player A cannot do a lot, just send the target word;
              * if player B is already available, send message to B
              */
-            if (oMsg.type == messages.T_TARGET_WORD) {
+            if (oMsg.type == messages.T_FIRSTTURN) {
                 gameObj.setWord(oMsg.data);
 
                 if(gameObj.hasTwoConnectedPlayers()){
                     gameObj.playerB.send(message); 
                 }                
             }
+
+            if(oMsg.type == messages.T_MAKE_A_TURN){
+                gameObj.playerB.send(message);
+                gameObj.setStatus("MADE A TURN");
+                console.log(gameObj.setStatus("MADE A TURN"));
+            }
+            /*
+             * player A can state who won/lost
+             */ 
+            if( oMsg.type == messages.T_GAME_WON_BY){
+                gameObj.setStatus(oMsg.data);
+                //game was won by somebody, update statistics
+                gameStatus.gamesCompleted++;
+            }  
         }
         else {
             console.log("app caller player B, message: " + message);
@@ -116,20 +121,11 @@ wss.on("connection", function connection(ws) {
              * player B can make a guess; 
              * this guess is forwarded to A
              */ 
-            if(oMsg.type == messages.T_MAKE_A_GUESS){
+            if(oMsg.type == messages.T_MAKE_A_TURN){
                 gameObj.playerA.send(message);
-                gameObj.setStatus("CHAR GUESSED");
-                console.log(gameObj.setStatus("CHAR GUESSED"));
-            }
-
-            /*
-             * player B can state who won/lost
-             */ 
-            if( oMsg.type == messages.T_GAME_WON_BY){
-                gameObj.setStatus(oMsg.data);
-                //game was won by somebody, update statistics
-                gameStatus.gamesCompleted++;
-            }            
+                gameObj.setStatus("MADE A TURN");
+                console.log(gameObj.setStatus("MADE A TURN"));
+            }   
         }
     });
 

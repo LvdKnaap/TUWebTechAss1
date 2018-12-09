@@ -42,8 +42,8 @@
     };
     exports.S_PLAYER_B = JSON.stringify(exports.O_PLAYER_B);
 
-    /* 
-     * Player A to server OR server to Player B: this is the target word 
+/* 
+     * Server to Player A & B or Player A & B to server: first turn
      */
     exports.T_FIRSTTURN = "FIRST TURN";
     exports.O_FIRSTTURN = {                         

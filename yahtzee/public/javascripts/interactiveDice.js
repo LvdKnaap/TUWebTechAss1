@@ -5,6 +5,7 @@ let upperScore = 0; let lowerScore = 0;
 let totScore = 0;
 let bonusUnlockedPlayer1 = false;
 let selectedCategories = 0;
+let currentScore = 0;
 
 function throwDice() {
     if (throwsLeft > 0) {
@@ -22,7 +23,6 @@ function throwDice() {
         window.alert("No more throws left. Select a category below.");
     }
     document.getElementById("clickDiceToHold").style.display = 'block';
-    //showPotentialScores();
 }
 
 function selectDeselect(i) {
@@ -61,20 +61,6 @@ function categorySelected() {
     }
     deselectAll();
 }
-/*
-function showPotentialScores() {
-    let values = [0,0,0,0,0,0];
-    for (let i = 0; i < currDice.length; i++) {
-        values[currDice[i]-1] += currDice[i];
-    }
-    onesPlayer1.innerHTML = values[0];
-    twosPlayer1.innerHTML = values[1];
-    threesPlayer1.innerHTML = values[2];
-    foursPlayer1.innerHTML = values[3];
-    fivesPlayer1.innerHTML = values[4];
-    sixesPlayer1.innerHTML = values[5];
-}
-*/
 
 function checkWhetherWeCanSelectACategory() {
     if (currDice[0] == 0) {
@@ -118,8 +104,7 @@ function numbers(s) { // s = {0,...,5}
                 score += value;
             }
         }
-        console.log(strL);
-        console.log(strU);
+
         document.getElementById(strL).innerHTML = score;
         upperScore += score;
         totalUpperScorePlayer1.innerHTML = upperScore;

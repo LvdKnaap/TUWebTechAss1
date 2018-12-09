@@ -2,22 +2,16 @@
 /* global Setup, Status, Messages, englishDict*/
 
 /* basic constructor of game state */
-function GameState(visibleWordBoard, sb, socket){
+function GameState(sb, socket){
 
     this.playerType = null;
     this.MAX_ALLOWED = Setup.MAX_ALLOWED_GUESSES;
-    this.wrongGuesses = 0;
+    this.NoTurns = 0;
     this.visibleWordArray = null;
-    this.alphabet = new Alphabet();
-    this.alphabet.initialize();
-    this.visibleWordBoard = visibleWordBoard;
+    this.yahtzeeButtons = new YahtzeeButtons();
+    this.yahtzeeButtons.initialize();
     this.targetWord = null;
     this.statusBar = sb;
-
-    this.initializeVisibleWordArray = function(){
-        this.visibleWordArray = new Array(this.targetWord.length);
-        this.visibleWordArray.fill(Setup.HIDDEN_CHAR);
-    };
 
     this.getPlayerType = function () {
         return this.playerType;
@@ -28,26 +22,8 @@ function GameState(visibleWordBoard, sb, socket){
         this.playerType = p;
     };
 
-    this.setTargetWord = function (w) {
-        console.assert(typeof w == "string", "%s: Expecting a string, got a %s", arguments.callee.name, typeof w);
-        this.targetWord = w;
-    };
-
-    this.getVisibleWordArray = function(){
-        return this.visibleWordArray;
-    };
-
-    this.incrWrongGuess = function(){
-        this.wrongGuesses++;
-
-        if(this.whoWon() == null){
-            //kill a balloon
-            let id = "b"+this.wrongGuesses;
-            document.getElementById(id).className += " balloonGone";
-            setTimeout(function () {
-                new Audio("../data/pop.wav").play();
-            }, 500);
-        }
+    this.incrNoTurns = function(){
+        this.NoTurns++;
     };
 
     this.whoWon = function(){
@@ -61,60 +37,23 @@ function GameState(visibleWordBoard, sb, socket){
         }
         return null; //nobody won yet
     };
-
-    this.revealLetters = function (letter, indices) {
+    this.updateScore = function(){
         
-        console.assert(typeof letter == "string", "%s: Expecting a string, got a %s", arguments.callee.name, typeof letter);
-        console.assert(indices instanceof Array, "%s: Expecting an array", arguments.callee.name);
-
-        for(let i=0; i<indices.length; i++){
-            this.visibleWordArray[ indices[i] ] = letter;
-        }
-    };
-
-    this.revealAll = function(){
-        this.visibleWordBoard.setWord(this.targetWord);
-    };
-
-    this.updateGame = function(clickedLetter){
+    }
+    this.updateGame = function(clickedButton){
 
         console.log("update game call");
 
-        console.assert(typeof clickedLetter == "string", "%s: Expecting a string, got a %s", arguments.callee.name, typeof clickedLetter);
+        this.yahtzeeButtons.makeButtonUnAvailable(clickedButton);
 
-        var res = this.alphabet.getLetterInWordIndices(clickedLetter, this.targetWord);
-
-        //wrong guess
-        if (res.length == 0) {
-            this.incrWrongGuess();
-        }
-        else {
-            this.revealLetters(clickedLetter, res);
-        }
-
-        this.alphabet.makeLetterUnAvailable(clickedLetter);
-        this.visibleWordBoard.setWord(this.visibleWordArray);
-
-        var outgoingMsg = Messages.O_MAKE_A_GUESS;
-        outgoingMsg.data = clickedLetter;
+        var outgoingMsg = Messages.O_MAKE_A_TURN;
+        outgoingMsg.data = clickedButton;
         socket.send(JSON.stringify(outgoingMsg));
 
         //is the game complete?
         let winner = this.whoWon();
         
         if(winner != null){
-            this.revealAll();
-
-            /* disable further clicks by cloning each alphabet
-             * letter and not adding an event listener; then
-             * replace the original node through some DOM logic
-             */
-            var elements = document.querySelectorAll(".alphabet");
-            Array.from(elements).forEach(function (e) {
-                var cloned = e.cloneNode(true);
-                e.parentNode.replaceChild(cloned, e);
-            });
-
             let alertString;
             if( winner == this.playerType){
                 alertString = Status["gameWon"];
@@ -125,8 +64,8 @@ function GameState(visibleWordBoard, sb, socket){
             alertString += Status["playAgain"];
             sb.setStatus(alertString);
 
-            //player B sends final message
-            if(this.playerType == "B"){
+            //player A sends final message
+            if(this.playerType == "A"){
                 let finalMsg = Messages.O_GAME_WON_BY;
                 finalMsg.data = winner;
                 socket.send(JSON.stringify(finalMsg));
@@ -136,19 +75,19 @@ function GameState(visibleWordBoard, sb, socket){
     };
 }
 
-function AlphabetBoard(gs){
+function ButtonBoard(gs){
 
     //only initialize for player that should actually be able to use the board
     this.initialize = function(){
 
-        var elements = document.querySelectorAll(".alphabet");
+        var elements = document.querySelectorAll(".yahtzeeButtons");
         Array.from(elements).forEach( function(el){
 
             el.addEventListener("click", function singleClick(e){
-                var clickedLetter = e.target.id;
+                var clickedButton = e.target.id;
                 new Audio("../data/click.wav").play();
                 console.log("event lisener call");
-                gs.updateGame(clickedLetter);
+                gs.updateGame(clickedButton);
 
                 /*
                  * every letter can only be selected once; handling this within
@@ -160,11 +99,11 @@ function AlphabetBoard(gs){
     };
 }
 
-function disableAlphabetButtons() {
-    var alphabet = document.getElementById("alphabet");
-    var letterDivs = alphabet.getElementsByTagName("div");
-    for (i = 0; i < letterDivs.length; i++) {
-        letterDivs.item(i).className += " alphabetDisabled";
+function disableButtons() {
+    var buttons = document.getElementById("yathzeeButtons");
+    var buttonDivs = yathzeeButtons.getElementsByTagName("div");
+    for (i = 0; i < buttonDivs.length; i++) {
+        buttonDivs.item(i).className += " buttonDisabled";
     }
 }
 
@@ -180,14 +119,10 @@ function disableAlphabetButtons() {
      * 
      * the GameState object coordinates everything
      */ 
-    var vw = new VisibleWordBoard();
     var sb = new StatusBar();
 
-    //no object, just a function
-    createBalloons();
-
-    var gs = new GameState(vw, sb, socket);
-    var ab = new AlphabetBoard(gs);
+    var gs = new GameState(sb, socket);
+    var bb = new ButtonBoard(gs);
 
     socket.onmessage = function (event) {
 
@@ -197,75 +132,33 @@ function disableAlphabetButtons() {
         //set player type
         if (incomingMsg.type == Messages.T_PLAYER_TYPE) {
             console.log("socket call, set player type");
-
             gs.setPlayerType( incomingMsg.data );//should be "A" or "B"
-
-            //if player type is A, (1) pick a word, and (2) sent it to the server
-            if (gs.getPlayerType() == "A") {
-
-                disableAlphabetButtons();
-
+            if (gs.getPlayerType()=="A")
+            {
                 sb.setStatus(Status["player1Intro"]);
-                let validWord = -1;
-                let promptString = Status["prompt"];
-                let res = null;
-
-                while(validWord<0){
-                    res = prompt(promptString);
-
-                    if (res == null) {
-                        promptString = Status["prompt"];
-                    }
-                    else {
-                        res = res.toUpperCase();
-                    
-                        if (res.length < Setup.MIN_WORD_LENGTH || res.length > Setup.MAX_WORD_LENGTH) {
-                            promptString = Status["promptAgainLength"];
-                        }
-                        else if (/^[a-zA-Z]+$/.test(res) == false) {
-                            promptString = Status["promptChars"];
-                        }
-                        //dictionary has only lowercase entries
-                        else if (englishDict.hasOwnProperty(res.toLocaleLowerCase()) == false) {
-                            promptString = Status["promptEnglish"];
-                        }
-                        else {
-                            validWord = 1;
-                        }
-                    }
-                }
-                sb.setStatus(Status["chosen"]+res);
-                gs.setTargetWord(res);
-                gs.initializeVisibleWordArray(); // initialize the word array, now that we have the word
-                vw.setWord(gs.getVisibleWordArray());
-
-                let outgoingMsg = Messages.O_TARGET_WORD;
-                outgoingMsg.data = res;
-                socket.send(JSON.stringify(outgoingMsg));
             }
-            else {
-                sb.setStatus(Status["player2IntroNoTargetYet"]);   
+            else
+            {
+                sb.setStatus(Status["player2Intro"]);
             }
+            let outgoingMsg = Messages.T_FIRSTTURN;
+            socket.send(JSON.stringify(outgoingMsg));
         }
 
-        //Player B: wait for target word and then start guessing ...
-        if( incomingMsg.type == Messages.T_TARGET_WORD && gs.getPlayerType() == "B"){
-            console.log("socket call, wait for targetword");
+        //Play first turn and update game 
+        if (incomingMsg.type == Messages.T_FIRSTTURN){
+            console.log("socket call, first turn");
 
-            gs.setTargetWord(incomingMsg.data);
-
-            sb.setStatus(Status["player2Intro"]);
-            gs.initializeVisibleWordArray(); // initialize the word array, now that we have the word
-            ab.initialize();
-            vw.setWord(gs.getVisibleWordArray());
+            sb.setStatus(Status["playerSecondIntro"]);
+            bb.initialize();
+            gs.updateGame(incomingMsg.data);
         }
 
-
-        //Player A: wait for guesses and update the board ...
-        if( incomingMsg.type == Messages.T_MAKE_A_GUESS && gs.getPlayerType()=="A"){
+        //waarsch werkt dit niet omdat we in update game zitten
+        //Play turn and update game 
+        if( incomingMsg.type == Messages.T_MAKE_A_TURN){
             console.log("socket call, update board with guesses");
-
-            sb.setStatus(Status["guessed"] + incomingMsg.data);
+            sb.setStatus(Status["played"] + incomingMsg.data);
             gs.updateGame(incomingMsg.data);
         }
     };
