@@ -9,7 +9,6 @@ function GameState(sb, socket){
     this.NoTurns = 0;
     this.yahtzeeButtons = new YahtzeeButtons();
     this.yahtzeeButtons.initialize();
-    this.targetWord = null;
     this.statusBar = sb;
 
     this.getPlayerType = function () {
@@ -44,6 +43,7 @@ function GameState(sb, socket){
     this.updateGame = function(clickedButton){
 
         console.log("update game call");
+
 
         this.yahtzeeButtons.makeButtonUnAvailable(clickedButton);
 
