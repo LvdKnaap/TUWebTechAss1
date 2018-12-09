@@ -5,9 +5,8 @@
 function GameState(sb, socket){
 
     this.playerType = null;
-    this.MAX_ALLOWED = Setup.MAX_ALLOWED_GUESSES;
+    this.playerPoints = 0;
     this.NoTurns = 0;
-    this.visibleWordArray = null;
     this.yahtzeeButtons = new YahtzeeButtons();
     this.yahtzeeButtons.initialize();
     this.targetWord = null;
@@ -27,19 +26,21 @@ function GameState(sb, socket){
     };
 
     this.whoWon = function(){
-        //too many wrong guesses? Player A (who set the word) won
-        if( this.wrongGuesses>Setup.MAX_ALLOWED_GUESSES){
-            return "A";
+        if (this.playerType == "B" && this.NoTurns != 13) {
+            return null; //nobody won yet
         }
-        //word solved? Player B won
-        if( this.visibleWordArray.indexOf("#")<0){
-            return "B";
+        if (this.playerPoints == that.playerPoints) { // that.playerPoints denotes opponents points
+            return "draw";
+        } else {
+            return this.playerPoints > that.playerPoints ? "A" : "B"; // idem dito
         }
-        return null; //nobody won yet
     };
-    this.updateScore = function(){
+
+
+    this.updateScore = function(){ // ?? todo?
         
     }
+    
     this.updateGame = function(clickedButton){
 
         console.log("update game call");
@@ -140,6 +141,7 @@ function disableButtons() {
             else
             {
                 sb.setStatus(Status["player2Intro"]);
+                //todo message
             }
             let outgoingMsg = Messages.T_FIRSTTURN;
             socket.send(JSON.stringify(outgoingMsg));
