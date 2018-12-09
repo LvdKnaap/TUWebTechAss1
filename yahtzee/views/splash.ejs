@@ -1,47 +1,75 @@
 <!DOCTYPE html>
 <html>
+
+<head>
+
     <head>
-        <title>Ballons: a two player word game</title>
-        <link rel="stylesheet" href="stylesheets/splash.css">
+        <title>Let's play yahtzee!</title>
+        <link href="stylesheets/splash.css" rel="stylesheet" type="text/css">
     </head>
-    <body>
-        <main>
-            <section id="left">
-                <div id="decoration-top">
-                    <span class="square"></span>
-                    <span class="square"></span>
-                    <span class="square"></span>
-                    <span class="square"></span>
-                    <span class="square"></span>
-                    <span class="square"></span>
-                    <span class="square"></span>
-                    <span class="square"></span>
-                    <span class="square"></span>
-                </div>
-                <h1>Exploding balloons</h1>
-                <h2>A two player word game</h2>
-                <h3><%= gamesInitialized %> 
-                    <%if (gamesInitialized != 1) { %>
-                        games
-                    <% } else { %>
-                        game
-                    <% } %>
-                    initialized, 
-                    <%= gamesCompleted %> 
-                    completed
-                </h3>
+</head>
+
+<body>
+    <header>
+        <img id="annoyingLogo" src="data/logo2.png" alt="Logo" width="100" height="100">
+    </header>
+    <main>
+        <div class="kolom">
+
+            <nav>
+                <img src="data/logo2.png" alt="Logo" width="30" height="30">
+                <a href="https://en.wikipedia.org/wiki/Yahtzee#Rules">How to play</a> |
+                <a href="https://en.wikipedia.org/w/index.php?title=Yahtzee&action=edit&section=2">Make your own rules</a>
+                <a href="http://www.virtualcointoss.com/">About the authors</a>
+                <img src="data/logo2.png" alt="Logo" width="30" height="30">
+            </nav>
+            <p id="lowResolution">Your resolution is too small, please enlargen the screen.</p>
+            <div id="blindLeft">.</div>
+            <section id="statistics">
+                <h2 id="statisticsHeader">Statistics</h2>
+                <ul>
+                    <li id="numGames">Games Played: </li>
+                    <li id="avgGameTime">Average duration of a game: </li>
+                    <li id="totGameTime">Total time spent: </li>
+                </ul>
             </section>
-            <section id="right">
-                &nbsp;
+            <section id="instructions">
+                <h2 id="instructionsHeader">Instructions</h2>
+                <ol>
+                    <li>Take turns rolling the dice,</li>
+                    <li>Save any dice you want and re-roll the other dice,</li>
+                    <li>You have a maximum of three rolls of the dice,</li>
+                    <li>Choose one of the 13 scoring categories,</li>
+                    <li>The score per category depends on the outcome of the dice,</li>
+                    <li>For details regarding the scoring rules, see the top link,</li>
+                    <li>The game ends once both players have selected all categories,</li>
+                    <li>The player with the most points is declared the winner.</li>
+                </ol>
             </section>
-            <section id="balloons">
-                    <form action="/play" method="get">
-                            <button type="submit">PLAY</button>
-                    </form>
-                    <span class="balloon" id="b1"></span>
-                    <span class="balloon" id="b2"></span>
-                    <span class="balloon" id="b3"></span>
+        </div>
+        <div class="kolom">
+            <section id="title">
+                <h1> YAHTZEE</h1>
             </section>
-        </main>
-    </body>
+        </div>
+
+        <div class="kolom">
+            <div id="blindRight1">.</div>
+            <img src="data/logo2.png" alt="Logo" width="250" height="200">
+            <div id="blindRight2">.</div>
+            <section id="play">
+                <form action="/play" method="get">
+                    <input type="submit" value="LET'S PLAY YAHTZEE!" id="playButton"></input>
+                </form>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+
+
+    </footer>
+</body>
+
 </html>

@@ -46,9 +46,8 @@ var currentGame = new Game(gameStatus.gamesInitialized++);
 var connectionID = 0;//each websocket receives a unique ID
 
 wss.on("connection", function connection(ws) {
-
     console.log("app caller, connection");
-
+    
     /*
      * two-player game: every two players are added to the same game
      */
