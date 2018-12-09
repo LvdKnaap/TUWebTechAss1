@@ -9,6 +9,9 @@ let currentScore = 0;
 let lowerScore = 0;
 let upperScore = 0;
 
+
+
+
 function throwDice() {
     if (throwsLeft > 0) {
         for (let i = 0; i < selected.length; i++) {

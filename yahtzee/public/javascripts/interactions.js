@@ -5,12 +5,9 @@
 function GameState(sb, socket){
 
     this.playerType = null;
-    this.MAX_ALLOWED = Setup.MAX_ALLOWED_GUESSES;
     this.NoTurns = 0;
-    this.visibleWordArray = null;
     this.yahtzeeButtons = new YahtzeeButtons();
     this.yahtzeeButtons.initialize();
-    this.targetWord = null;
     this.statusBar = sb;
 
     this.getPlayerType = function () {
@@ -37,12 +34,14 @@ function GameState(sb, socket){
         }
         return null; //nobody won yet
     };
+
     this.updateScore = function(){
-        
-    }
+    };
+    
     this.updateGame = function(clickedButton){
 
         console.log("update game call");
+
 
         this.yahtzeeButtons.makeButtonUnAvailable(clickedButton);
 
