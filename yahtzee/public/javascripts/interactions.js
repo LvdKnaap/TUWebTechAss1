@@ -40,7 +40,7 @@ function GameState(sb, socket){
     this.updateScore = function(){ // ?? todo?
         
     }
-    
+
     this.updateGame = function(clickedButton){
 
         console.log("update game call");
@@ -78,7 +78,8 @@ function GameState(sb, socket){
 
 function ButtonBoard(gs){
 
-    //only initialize for player that should actually be able to use the board
+    //only initialize for player that should actually be able to use the board      
+    // FALSE
     this.initialize = function(){
 
         var elements = document.querySelectorAll(".yahtzeeButtons");
@@ -150,8 +151,8 @@ function disableButtons() {
         //Play first turn and update game 
         if (incomingMsg.type == Messages.T_FIRSTTURN){
             console.log("socket call, first turn");
-
-            sb.setStatus(Status["playerSecondIntro"]);
+            sb.setStatus(Status["player1FirstTurn"]);
+            //sb.setStatus(Status["playerSecondIntro"]);
             bb.initialize();
             gs.updateGame(incomingMsg.data);
         }
