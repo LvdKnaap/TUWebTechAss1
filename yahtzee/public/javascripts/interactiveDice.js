@@ -6,11 +6,6 @@ let totScore = 0;
 let bonusUnlockedPlayer1 = false;
 let selectedCategories = 0;
 let currentScore = 0;
-let lowerScore = 0;
-let upperScore = 0;
-
-
-
 
 function throwDice() {
     if (throwsLeft > 0) {
