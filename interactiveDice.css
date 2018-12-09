@@ -1,16 +1,26 @@
-
+:root {
+    --yellow: yellow;
+    --green1: seagreen;
+    --green2: darkgreen;
+    --green3: forestgreen;
+    --red1: darkred;
+    --red2: tomato;
+}
 
 /* structuur */
+
 .kolom {
     float: left;
     border: 5px solid white;
     padding: 5px 5px;
 }
+
 .left, .middle {
-    width: 342;
+    width: 342px;
 }
+
 .right {
-    width: 171;
+    width: 171px;
 }
 
 img {
@@ -19,34 +29,34 @@ img {
     left: 50px;
 }
 
-
-
 body {
-    background: seagreen;
+    background: var(--green1);
     width: 1000px;
     margin: auto;
-    color: yellow;
+    color: var(--yellow);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
 
 section.dobbelstenen {
     text-align: center;
 }
+
 section.scorekaart {
     background-color: black;
 }
+
 section.information {
     background-color: darkgray;
     padding: 80px 0px;
 }
+
 section.ads {
     background-color: gray;
     padding: 80px 0px;
 }
 
 input.dobbelsteen {
-    background-color: darkred;
+    background-color: var(--red1);
     border: none;
     color: black;
     font-weight: bold;
@@ -67,7 +77,8 @@ input.categorie {
     font-weight: bold;
     display: inline-block;
     font-size: 16px;
-    width: 210px; /*trial and error */
+    width: 210px;
+    /*trial and error */
     border: none;
 }
 
@@ -77,10 +88,11 @@ input.klikOmTeGooienKnop {
     display: inline-block;
     font-size: 20px;
     width: 350px;
+    padding: 10px 10px;
 }
 
 #remainingThrows {
-    color: yellow;
+    color: var(--yellow);
     font-size: 20px;
     padding: 5px 5px;
     text-align: center;
@@ -93,73 +105,82 @@ p.categorie {
     font-size: 16px;
 }
 
-
 tr:nth-child(2n+1) {
-    background-color: darkgreen;
-   }
+    background-color: var(--green2);
+}
+
 tr:nth-child(2n+2) {
-    background-color: forestgreen;
+    background-color: var(--green3);
 }
 
 #buttonOnes {
-    background-color: forestgreen;
+    background-color: var(--green3);
     padding: 5px 0px;
 }
+
 #buttonThrees {
-    background-color: forestgreen;
+    background-color: var(--green3);
     padding: 5px 0px;
 }
+
 #buttonFives {
-    background-color: forestgreen;
+    background-color: var(--green3);
     padding: 5px 0px;
 }
+
 #buttonFourOfAKind {
-    background-color: forestgreen;
+    background-color: var(--green3);
     padding: 5px 0px;
 }
+
 #buttonSmallStraight {
-    background-color: forestgreen;
+    background-color: var(--green3);
     padding: 5px 0px;
 }
+
 #buttonYahtzee {
-    background-color: forestgreen;
+    background-color: var(--green3);
     padding: 5px 0px;
 }
 
 #buttonTwos {
-    background-color: darkgreen;
+    background-color: var(--green2);
     padding: 5px 0px;
 }
+
 #buttonFours {
-    background-color: darkgreen;
+    background-color: var(--green2);
     padding: 5px 0px;
 }
+
 #buttonSixes {
-    background-color: darkgreen;
+    background-color: var(--green2);
     padding: 5px 0px;
 }
+
 #buttonThreeOfAKind {
-    background-color: darkgreen;
+    background-color: var(--green2);
     padding: 5px 0px;
 }
+
 #buttonFullHouse {
-    background-color: darkgreen;
+    background-color: var(--green2);
     padding: 5px 0px;
 }
+
 #buttonLargeStraight {
-    background-color: darkgreen;
+    background-color: var(--green2);
     padding: 5px 0px;
 }
+
 #buttonChance {
-    background-color: darkgreen;
+    background-color: var(--green2);
     padding: 5px 0px;
 }
 
-td > div {
-   text-align: center;
+td>div {
+    text-align: center;
 }
-
-
 
 footer {
     font-weight: bold;
@@ -171,7 +192,7 @@ input {
 }
 
 input:visited {
-    color: tomato;
+    color: var(--red2);
 }
 
 nav {
@@ -179,112 +200,182 @@ nav {
 }
 
 a:visited {
-    color: tomato;
+    color: var(--red2);
     font-size: 30px;
 }
 
 a:hover {
     text-decoration: underline;
-    background-color: yellow;
+    background-color: var(--yellow);
 }
 
 h1 {
-    color: darkred;
+    font-size: 200%;
+    color: var(--red1);
     text-align: center;
 }
+
 h1::first-letter {
     font-size: 150%;
 }
+
 h2 {
-    color: darkred;
+    color: var(--red1);
     text-align: center;
 }
 
 table {
-    color: black;
+    color: white;
     font-size: 16px;
-    
 }
 
 input:disabled {
-    color: darkred;
+    color: var(--red1);
 }
+
 input:disabled:hover {
     cursor: initial;
 }
-
-/* 2 different postion thingys */
-/*
-#infoHeader {  
-    position: fixed;
-    top: 150px;
-    left: 870px;
-}
-*/
 
 #totalText {
     position: relative;
     left: 90px;
 }
 
-
-
-
+#annoyingLogo {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
 
 /*
-@keyframes move {
-    from {
-      transform: translate(0px, 1000px)
-    }
-
-    to   {
-      transform: translate(0px, 0px)
-    }
-  }
-  */
+#refThrowDice:hover {    
+    klikOmTeGooienKnop.animation-name: colorChange;
+    animation-duration: 1s;
+    animation-iteration-count: 3;
+}
+*/
 
 
 /* kan de eerste stoppen zodra button onclick() */
- @keyframes colorChange {
-     from {background-color: red;}
-     to {background-color: black;}
- }
 
- input.klikOmTeGooienKnop {
+@keyframes colorChange {
+    from {
+        background-color: red;
+    }
+    to {
+        background-color: black;
+    }
+}
+
+input.klikOmTeGooienKnop {
     animation-name: colorChange;
     animation-duration: 1s;
-    animation-iteration-count: 10; 
-  }
-/*
-  h1:before{
-    content: " ";
-    font-size: 100%;
-    animation-name: titleChange;
-    animation-duration: 10s;
-}*/
+    animation-iteration-count: 10;
+}
+
+h2::before {
+    content: "• ";
+}
+
+h2::after {
+    content: " •";
+}
 
 @keyframes titleChange {
-    0% {font-size:100%; opacity:1; content: "Welcome to our implementation of ";}
-    20% {font-size:100%; opacity:0.8; content: "Welcome to our implementation of ";}
-    40% {font-size:100%; opacity:0.6; content: "Welcome to our implementation of ";}
-    60% {font-size:100%; opacity:0.4; content: "Welcome to our implementation of ";}
-    80% {font-size:100%; opacity:0.2; content: "Welcome to our implementation of ";}
-    100% {font-size:100%; opacity:0;}
-    100% {font-size:100%; opacity:0;}
+    0% {
+        font-size: 100%;
+        opacity: 1;
+        content: "Welcome to our implementation of ";
+    }
+    20% {
+        font-size: 100%;
+        opacity: 0.8;
+        content: "Welcome to our implementation of ";
+    }
+    40% {
+        font-size: 100%;
+        opacity: 0.6;
+        content: "Welcome to our implementation of ";
+    }
+    60% {
+        font-size: 100%;
+        opacity: 0.4;
+        content: "Welcome to our implementation of ";
+    }
+    80% {
+        font-size: 100%;
+        opacity: 0.2;
+        content: "Welcome to our implementation of ";
+    }
+    100% {
+        font-size: 100%;
+        opacity: 0;
+    }
+    100% {
+        font-size: 100%;
+        opacity: 0;
+    }
 }
 
 #die1:hover {
     transform: translate(0px, -10px);
+    opacity: 1;
 }
+
 #die2:hover {
     transform: translate(0px, -10px);
 }
+
 #die3:hover {
     transform: translate(0px, -10px);
 }
+
 #die4:hover {
     transform: translate(0px, -10px);
 }
+
 #die5:hover {
     transform: translate(0px, -10px);
+}
+
+/* gekopieerd hier hier hier*/
+
+#status {
+    margin-top: 20px;
+    float: left;
+    width: 99%;
+    height: 100px;
+    background-color: #222;
+    color: var(--status-red);
+    font-size: 75%;
+    vertical-align: middle;
+}
+
+#statusbar {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 15px;
+    margin: 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 5s steps(40, end);
+    letter-spacing: .1em;
+}
+
+#lowResolution {
+    font-size: 50px;
+    background-color: red;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-bottom: 500px;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+@media only screen and (min-width: 1000px) {
+    #lowResolution {
+        display: none;
+    }
 }

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -10,18 +9,21 @@
 
 <body>
   <header>
-    <h1 id = "yahtzeeTitel">YAHTZEE</h1>
-    <nav>
-      <a href="https://en.wikipedia.org/wiki/Yahtzee#Rules">How to play</a> |
-      <a href="https://en.wikipedia.org/w/index.php?title=Yahtzee&action=edit&section=2">Make your own rules</a> |
-      <a href="http://www.virtualcointoss.com/">About the authors</a>
-    </nav>
+    <h1 id="yahtzeeTitel">YAHTZEE</h1>
+    <img id="annoyingLogo" src="logo2.png" alt="Time Complexities" width="100" height="100">
   </header>
   <main>
-    
+
     <div class="kolom">
-        <img src ="logo2.png" alt = "Time Complexities" width="250" height="150">
-        <h2> Click button below to roll dice</h2>
+      
+    <nav>
+        <a href="https://en.wikipedia.org/wiki/Yahtzee#Rules">How to play</a> |
+        <a href="https://en.wikipedia.org/w/index.php?title=Yahtzee&action=edit&section=2">Make your own rules</a> |
+        <a href="http://www.virtualcointoss.com/">About the authors</a>
+      </nav>
+      <p id="lowResolution">Your resolution is too small, please enlargen the screen.</p>
+      <img src="logo2.png" alt="Time Complexities" width="250" height="150">
+      <h2 id ="refThrowDice"> Click button below to roll dice</h2>
       <section class='dobbelstenen'>
         <input class='dobbelsteen' type="button" value="?" id="die1" onclick=selectDeselect(0)></input>
         <input class='dobbelsteen' type="button" value="?" id="die2" onclick=selectDeselect(1)></input>
@@ -32,7 +34,13 @@
 
         <p id="clickDiceToHold" style="display:none">Click on a dice to hold it</p>
         <div id="remainingThrows" style="clear:left;">Remaining throws: 3</div>
-        <input class = "klikOmTeGooienKnop" type="button" value="Click here to throw" onclick=throwDice()></input>
+        <input class="klikOmTeGooienKnop" type="button" value="Click here to throw" onclick=throwDice()></input>
+
+        <div id="status">
+            <span id="statusbar"></span>
+        </div>
+
+
       </section>
     </div>
     <div class="kolom">
@@ -99,14 +107,18 @@
             <td></td>
           </tr>
           <tr>
-              <td><p  class='categorie'>Bonus score</p></td>
+            <td>
+              <p class='categorie'>Bonus score</p>
+            </td>
             <td>
               <div id="bonusScorePlayer1"></div>
             </td>
             <td></td>
           </tr>
           <tr>
-                <td><p  class='categorie'>Total upper score</p></td>
+            <td>
+              <p class='categorie'>Total upper score</p>
+            </td>
             <td>
               <div id="totalUpperScorePlayer1"></div>
             </td>
@@ -163,19 +175,25 @@
             <td></td>
           </tr>
           <tr>
-            <td><p  class='categorie'>Yahtzee bonus</p></td>
+            <td>
+              <p class='categorie'>Yahtzee bonus</p>
+            </td>
             <td></td>
             <td></td>
           </tr>
           <tr>
-            <td><p  class='categorie'>Total lower score</p></td>
+            <td>
+              <p class='categorie'>Total lower score</p>
+            </td>
             <td>
               <div id="totalLowerScorePlayer1"></div>
             </td>
             <td></td>
           </tr>
           <tr>
-            <td><p id = "totalText"  class='categorie'>TOTAL</p></td>
+            <td>
+              <p id="totalText" class='categorie'>TOTAL</p>
+            </td>
             <td>
               <div id="totalScorePlayer1"></div>
             </td>
@@ -187,7 +205,7 @@
 
     <div class="kolom">
       <section class='information'>
-        <h2 id = "infoHeader">General Info</h2>
+        <h2 id="infoHeader">General Info</h2>
         <p>Duration: 2:33 min</p>
         <p> Turn: 3/13</p>
         <p> Currently playing: player X</p>
