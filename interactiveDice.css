@@ -1,0 +1,287 @@
+
+
+/* structuur */
+.kolom {
+    float: left;
+    border: 5px solid white;
+    padding: 5px 5px;
+}
+.left, .middle {
+    width: 342;
+}
+.right {
+    width: 171;
+}
+
+img {
+    padding-bottom: 50px;
+    background-color: black;
+}
+
+
+
+body {
+    background: seagreen;
+    width: 1000px;
+    margin: auto;
+    color: yellow;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+section.dobbelstenen {
+    text-align: center;
+}
+section.scorekaart {
+    background-color: black;
+}
+section.information {
+    background-color: darkgray;
+    padding: 80px 0px;
+}
+section.ads {
+    background-color: gray;
+    padding: 80px 0px;
+}
+
+input.dobbelsteen {
+    background-color: darkred;
+    border: none;
+    color: black;
+    font-weight: bold;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+}
+
+th {
+    text-align: center;
+}
+
+input.categorie {
+    text-align: left;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 16px;
+    width: 210px; /*trial and error */
+    border: none;
+}
+
+input.klikOmTeGooienKnop {
+    background-color: black;
+    color: white;
+    display: inline-block;
+    font-size: 20px;
+    width: 350px;
+}
+
+#remainingThrows {
+    color: yellow;
+    font-size: 20px;
+    padding: 5px 5px;
+    text-align: center;
+}
+
+p.categorie {
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 16px;
+}
+
+
+tr:nth-child(2n+1) {
+    background-color: darkgreen;
+   }
+tr:nth-child(2n+2) {
+    background-color: forestgreen;
+}
+
+#buttonOnes {
+    background-color: forestgreen;
+    padding: 5px 0px;
+}
+#buttonThrees {
+    background-color: forestgreen;
+    padding: 5px 0px;
+}
+#buttonFives {
+    background-color: forestgreen;
+    padding: 5px 0px;
+}
+#buttonFourOfAKind {
+    background-color: forestgreen;
+    padding: 5px 0px;
+}
+#buttonSmallStraight {
+    background-color: forestgreen;
+    padding: 5px 0px;
+}
+#buttonYahtzee {
+    background-color: forestgreen;
+    padding: 5px 0px;
+}
+
+#buttonTwos {
+    background-color: darkgreen;
+    padding: 5px 0px;
+}
+#buttonFours {
+    background-color: darkgreen;
+    padding: 5px 0px;
+}
+#buttonSixes {
+    background-color: darkgreen;
+    padding: 5px 0px;
+}
+#buttonThreeOfAKind {
+    background-color: darkgreen;
+    padding: 5px 0px;
+}
+#buttonFullHouse {
+    background-color: darkgreen;
+    padding: 5px 0px;
+}
+#buttonLargeStraight {
+    background-color: darkgreen;
+    padding: 5px 0px;
+}
+#buttonChance {
+    background-color: darkgreen;
+    padding: 5px 0px;
+}
+
+td > div {
+   text-align: center;
+}
+
+
+
+footer {
+    font-weight: bold;
+    color: black;
+}
+
+input {
+    cursor: pointer;
+}
+
+input:visited {
+    color: tomato;
+}
+
+nav {
+    padding: 10px 10px;
+}
+
+a:visited {
+    color: tomato;
+    font-size: 30px;
+}
+
+a:hover {
+    text-decoration: underline;
+    background-color: yellow;
+}
+
+h1 {
+    color: darkred;
+    text-align: center;
+}
+h1::first-letter {
+    font-size: 150%;
+}
+h2 {
+    color: darkred;
+    text-align: center;
+}
+
+table {
+    color: black;
+    font-size: 16px;
+    
+}
+
+input:disabled {
+    color: darkred;
+}
+input:disabled:hover {
+    cursor: initial;
+}
+
+/* 2 different postion thingys */
+#infoHeader {   /* dit werkt niet voor verschillende groottes */
+    position: fixed;
+    top: 150px;
+    left: 870px;
+}
+
+#totalText {
+    position: relative;
+    left: 90px;
+}
+
+
+
+
+
+/*
+@keyframes move {
+    from {
+      transform: translate(0px, 1000px)
+    }
+
+    to   {
+      transform: translate(0px, 0px)
+    }
+  }
+  */
+
+
+/* kan de eerste stoppen zodra button onclick() */
+ @keyframes colorChange {
+     from {background-color: red;}
+     to {background-color: black;}
+ }
+
+ input.klikOmTeGooienKnop {
+    animation-name: colorChange;
+    animation-duration: 1s;
+    animation-iteration-count: 10; 
+  }
+
+  h1:before{
+    content: " ";
+    font-size: 100%;
+    animation-name: titleChange;
+    animation-duration: 10s;
+}
+
+@keyframes titleChange {
+    0% {font-size:100%; opacity:1; content: "Welcome to our implementation of ";}
+    20% {font-size:100%; opacity:0.8; content: "Welcome to our implementation of ";}
+    40% {font-size:100%; opacity:0.6; content: "Welcome to our implementation of ";}
+    60% {font-size:100%; opacity:0.4; content: "Welcome to our implementation of ";}
+    80% {font-size:100%; opacity:0.2; content: "Welcome to our implementation of ";}
+    100% {font-size:100%; opacity:0;}
+    100% {font-size:100%; opacity:0;}
+}
+
+#die1:hover {
+    transform: translate(0px, -10px);
+}
+#die2:hover {
+    transform: translate(0px, -10px);
+}
+#die3:hover {
+    transform: translate(0px, -10px);
+}
+#die4:hover {
+    transform: translate(0px, -10px);
+}
+#die5:hover {
+    transform: translate(0px, -10px);
+}

@@ -7,7 +7,7 @@ let bonusUnlockedPlayer1 = false;
 let selectedCategories = 0;
 
 function throwDice() {
-    if (throwsLeft > -100) {
+    if (throwsLeft > 0) {
         for (let i = 0; i < selected.length; i++) {
             if (!selected[i]) {
                 let dieName = "die" + (i + 1);
@@ -30,10 +30,10 @@ function selectDeselect(i) {
         let dieName = "die" + (i + 1);
         if (selected[i]) {
             selected[i] = false;
-            document.getElementById(dieName).style.background = 'red';
+            document.getElementById(dieName).style.background = 'darkred';
         } else {
             selected[i] = true;
-            document.getElementById(dieName).style.background = 'lightgrey';
+            document.getElementById(dieName).style.background = 'white';
         }
     }
 }
@@ -42,7 +42,7 @@ function deselectAll() {
     for (let i = 0; i < selected.length; i++) {
         let dieName = "die" + (i + 1);
         selected[i] = false;
-        document.getElementById(dieName).style.background = 'red';
+        document.getElementById(dieName).style.background = 'darkred';
     }
 }
 
@@ -136,7 +136,7 @@ function numbers(s) { // s = {0,...,5}
 
         categorySelected();
         document.getElementById(strU).disabled = true;
-        document.getElementById(strL).style.color = 'red'; // change to green if css implemented
+        document.getElementById(strL).style.color = 'darkred'; // change to green if css implemented
     }
 }
 
@@ -169,7 +169,7 @@ function smallStraight() {
         totalScorePlayer1.innerHTML = totScore;
         categorySelected();
         document.getElementById("buttonSmallStraight").disabled = true;
-        document.getElementById("smallStraightPlayer1").style.color = 'red';
+        document.getElementById("smallStraightPlayer1").style.color = 'darkred';
     }
 }
 
@@ -193,7 +193,7 @@ function largeStraight() {
         totalScorePlayer1.innerHTML = totScore;
         categorySelected();
         document.getElementById("buttonLargeStraight").disabled = true;
-        document.getElementById("largeStraightPlayer1").style.color = 'red';
+        document.getElementById("largeStraightPlayer1").style.color = 'darkred';
     }
 }
 
@@ -235,7 +235,7 @@ function fullHouse() {
         totalScorePlayer1.innerHTML = totScore;
         categorySelected();
         document.getElementById("buttonFullHouse").disabled = true;
-        document.getElementById("fullHousePlayer1").style.color = 'red';
+        document.getElementById("fullHousePlayer1").style.color = 'darkred';
     }
 }
 
@@ -274,7 +274,7 @@ function threeOfAKind() {
         totalScorePlayer1.innerHTML = totScore;
         categorySelected();
         document.getElementById("buttonThreeOfAKind").disabled = true;
-        document.getElementById("threeOfAKindPlayer1").style.color = 'red';
+        document.getElementById("threeOfAKindPlayer1").style.color = 'darkred';
     }
 }
 
@@ -310,7 +310,7 @@ function fourOfAKind() {
         totalScorePlayer1.innerHTML = totScore;
         categorySelected();
         document.getElementById("buttonFourOfAKind").disabled = true;
-        document.getElementById("fourOfAKindPlayer1").style.color = 'red';
+        document.getElementById("fourOfAKindPlayer1").style.color = 'darkred';
     }
 }
 
@@ -327,7 +327,7 @@ function chance() {
         totalScorePlayer1.innerHTML = totScore;
         categorySelected();
         document.getElementById("buttonChance").disabled = true;
-        document.getElementById("chancePlayer1").style.color = 'red';
+        document.getElementById("chancePlayer1").style.color = 'darkred';
     }
 }
 
@@ -344,6 +344,6 @@ function yahtzee() {
         }
         categorySelected(); // hier hier hier gaat niet goed
         document.getElementById("buttonYahtzee").disabled = true; // hier hier hier gaat niet goed
-        document.getElementById("yahtzeePlayer1").style.color = 'red';
+        document.getElementById("yahtzeePlayer1").style.color = 'darkred';
     }
 }
