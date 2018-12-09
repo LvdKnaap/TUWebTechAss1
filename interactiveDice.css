@@ -14,8 +14,9 @@
 }
 
 img {
-    padding-bottom: 50px;
-    background-color: black;
+    position: relative;
+    top: 15px;
+    left: 50px;
 }
 
 
@@ -213,11 +214,13 @@ input:disabled:hover {
 }
 
 /* 2 different postion thingys */
-#infoHeader {   /* dit werkt niet voor verschillende groottes */
+/*
+#infoHeader {  
     position: fixed;
     top: 150px;
     left: 870px;
 }
+*/
 
 #totalText {
     position: relative;
@@ -252,13 +255,13 @@ input:disabled:hover {
     animation-duration: 1s;
     animation-iteration-count: 10; 
   }
-
+/*
   h1:before{
     content: " ";
     font-size: 100%;
     animation-name: titleChange;
     animation-duration: 10s;
-}
+}*/
 
 @keyframes titleChange {
     0% {font-size:100%; opacity:1; content: "Welcome to our implementation of ";}
