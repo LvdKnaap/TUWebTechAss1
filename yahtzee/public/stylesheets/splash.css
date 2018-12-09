@@ -1,133 +1,209 @@
-@import 'style.css';
+/* structuur */
+
+:root {
+    --yellow: yellow;
+    --green1: seagreen;
+    --green2: darkgreen;
+    --green3: forestgreen;
+    --red1: darkred;
+    --red2: tomato;
+  }
+
+
+.kolom {
+    float: left;
+    padding: 5px 5px;
+}
+
+.left, .right {
+    width: 342px;
+}
+
+.middle {
+    width: 100px;
+}
+
+img {
+}
 
 body {
-    font-family: fantasy;
+    background: var(--green1);
+    width: 1000px;
+    margin: auto;
+    color: var(--yellow1);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+section.statistics {
+    text-align: center;
+    padding: 80px 0px;
+}
+
+section.instructions {
+    background-color: black;
+    padding: 80px 0px;
+}
+
+section.play {
+    background-color: darkgray;
+    padding: 80px 0px;
+}
+
+section.title {
+    background-color: gray;
+    padding: 80px 0px;
+}
+
+#playButton {
+    background-color: var(--red1);
+    border: none;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
+
+#blindLeft {
+    color: var(--green1);
+    padding: 100px 100px
+}
+
+#blindRight1 {
+    color: var(--green1);
+    padding: 120px 100px;
+}
+#blindRight2 {
+    color: var(--green1);
+    padding: 50px 100px;
+}
+
+#instructions {
+    position: relative;
+    top: 50px;
+}
+
+li:nth-child(2n+1) {
+    background-color: var(--green2);
+}
+
+li:nth-child(2n+2) {
+    background-color: var(--green3);
+}
+
+input {
+    cursor: pointer;
+}
+
+input:visited {
+    color: var(--red2);
+}
+
+nav {
+    padding: 10px 10px;
+}
+
+a:visited {
+    color: var(--red2);
+    font-size: 30px;
+}
+
+a:hover {
+    text-decoration: underline;
+    background-color: var(--yellow1);
 }
 
 h1 {
-    position: absolute;
-    font-size: 400%;
-    top: 200px;
-    left: 50px;
-    color: white;
+    color: var(--red1);
+    text-align: center;
+    padding: 100px 0px;
+    font-size: 250%;
 }
 
-h1::before {
-    content: "★ ";
-    color: var(--main-red);
-}
-
- h2::after {
-    content: " ★";
-    color: var(--main-red);
+h1::first-letter {
+    font-size: 150%;
 }
 
 h2 {
-    position: absolute;
-    font-size: 220%;
-    top: 350px;
-    left: 50px;
-    color:#ccc;
+    color: var(--red1);
+    text-align: center;
 }
 
-h3::before {
-    content: "★ ";
-    color: var(--main-red);
-}
-h3 {
-    position: absolute;
-    font-size: 110%;
-    top: 550px;
-    left: 50px;
-    color: white;
-    font-family:monaco,Bitstream Vera Sans Mono,monospace;
+#instructions {
+    border: 5px solid white;
 }
 
-#decoration-top {
-    position: absolute;
-    top: 100px;
-    left: 50px;
+#statistics {
+    border: 5px solid white;
 }
 
-@keyframes wobblySquare {
+#play {
+    border: 5px solid white;
+}
+
+
+@keyframes colorChange {
     from {
-      height: 24px;
-      width: 79px;
+        color: yellow;
+        transform: translate(-250px, 0px);
     }
-  
-    to {
-      height: 25px;
-      width: 80px;
+    to {color: var(--red1); 
+    transform: translate(250px, 0px);
     }
 }
 
-.square {
-    height: 25px;
-    width: 80px;
-    margin-right: 10px;
-    background-color: white;
-    display: inline-block;
-    animation-duration: 1s;
-    animation-name: wobblySquare;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+h1 {
+   animation-name: colorChange;
+   animation-duration: 20s;
+   animation-iteration-count: 1;
+ }
+
+ 
+ #playButton:hover {
+    width: 280px;
+    background-color: black;
+    color: yellow;
 }
 
-.square:hover {
-    background-color: #C3343C;
-    transform: scale(1.1) rotateZ(-5deg);
-}
-
-#left {
-    float: left;
-    width: 70%;
-    background-color: #555
-}
-
-#right {
-    float: left;
-    width: 30%;
-    background-color: #AAA;
-}
-
-#b1 {
-      position: absolute;
-      bottom: 10px;
-      right: 50px;
-      background-color: #fff;
-}
-
-#b2 {
-    position: absolute;
-    bottom: 10px;
-    right: 200px;
-    background-color: #ddd;
-}
-
-#b3 {
-    position: absolute;
-    bottom: 10px;
-    right: 350px;
-    background-color: #aaa;
-}
-
-button {
-    position: absolute;
-    background-color: var(--main-red);
-    color: #fff;
-    bottom: 100px;
-    right: 250px;
-    font-size: 700%;
-    border: none;
-    padding: 30px;
-    width: 30%;
-    z-index: 1;
-}
-
-button:hover {
-    background-color: #000;
-    transition: background-color 2s ease;
-    text-decoration: underline overline;
+#annoyingLogo {
+    position: fixed;
+    top: 0;
+    right: 0;
 }
 
 
+#statistics {
+    background-color: var(--green3);
+}
+
+#instructions {
+    background-color: var(--green3);
+}
+
+h2::before{
+    content: "• ";
+}
+h2::after{
+    content: " •";
+}
+
+#lowResolution {
+    font-size: 50px;
+    background-color: red;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-bottom: 500px;
+    margin-right: 100px;
+    margin-left: 100px;
+    color: yellow;
+}
+
+@media only screen and (min-width: 1000px) {
+    #lowResolution { 
+        display: none;
+    }
+}
