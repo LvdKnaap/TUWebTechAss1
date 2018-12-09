@@ -1,3 +1,6 @@
+
+# 09/12/'18 => WAT EEN OVERZICHTELIJKE PUINHOOP
+
 # TUWebTechAss1
 
 # Echte opdracht heet Yathzee
