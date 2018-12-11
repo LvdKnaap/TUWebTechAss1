@@ -161,7 +161,7 @@ function numbers(s) { // s = {0,...,5}
 
         categorySelected();
         document.getElementById(strU).disabled = true;
-        document.getElementById(strL).style.color = 'darkred'; // change to green if css implemented
+        //document.getElementById(strL).style.color = 'darkred'; // change to green if css implemented
     }
 }
 
