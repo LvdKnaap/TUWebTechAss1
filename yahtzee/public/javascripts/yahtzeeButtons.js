@@ -32,7 +32,7 @@ function YahtzeeButtons() {
         this.buttons[button] = USED;
 
         //visually switch off the UI element by simply adding a classname
-        document.getElementById(button).className += " buttonUsed";
+        document.getElementById(button).disabled = true;
     };
 }
 

@@ -6,6 +6,7 @@ function GameState(sb, socket){
 
     this.playerType = null;
     this.playerPoints = 0;
+    this.arrayScoreThis = ["","","","","","","","","","","","",""];
     this.NoTurns = 0;
     this.yahtzeeButtons = new YahtzeeButtons();
     this.yahtzeeButtons.initialize();
@@ -48,7 +49,10 @@ function GameState(sb, socket){
         this.yahtzeeButtons.makeButtonUnAvailable(clickedButton);
 
         var outgoingMsg = Messages.O_MAKE_A_TURN;
-        outgoingMsg.data = clickedButton;
+        arrayScoreOpponent = outgoingMsg.data;
+
+
+        outgoingMsg.data = arrayScoreThis;
         socket.send(JSON.stringify(outgoingMsg));
 
         //is the game complete?
@@ -161,7 +165,7 @@ function disableButtons() {
             bb.initialize();
             gs.updateGame(incomingMsg.data);
         }
-          //Play first turn B and update game 
+          //Play first turn B and update game , still necessary???
           if (incomingMsg.type == Messages.T_FIRSTTURN && gs.getPlayerType() == "B"){
             console.log("socket call, first turn");
             sb.setStatus(Status["player2FirstTurn"]);
