@@ -28,10 +28,10 @@ function GameState(sb, socket){
         if (this.playerType == "B" && this.NoTurns != 13) {
             return null; //nobody won yet
         }
-        if (this.playerPoints == that.playerPoints) { // that.playerPoints denotes opponents points
+        if (this.playerPoints == 10) { //that.playerPoints) { // that.playerPoints denotes opponents points
             return "draw";
         } else {
-            return this.playerPoints > that.playerPoints ? "A" : "B"; // idem dito
+            return this.playerPoints > 100 ? "A" : "B"; //that.playerPoints ? "A" : "B"; // idem dito
         }
     };
 
@@ -140,20 +140,31 @@ function disableButtons() {
             if (gs.getPlayerType()=="A")
             {
                 sb.setStatus(Status["player1Intro"]);
+                console.log("Now wait for player 2 (B)");
+                //Now wait for player 2 (B), do nothing
             }
             else
             {
                 sb.setStatus(Status["player2Intro"]);
-                //todo message
+                console.log("Player B joined");
+                let outgoingMsg = Messages.O_FIRSTTURN;
+                outgoingMsg.data = 0;
+                socket.send(JSON.stringify(outgoingMsg));
             }
-            let outgoingMsg = Messages.T_FIRSTTURN;
-            socket.send(JSON.stringify(outgoingMsg));
         }
 
-        //Play first turn and update game 
-        if (incomingMsg.type == Messages.T_FIRSTTURN){
+        //Play first turn A and update game 
+        if (incomingMsg.type == Messages.T_FIRSTTURN && gs.getPlayerType() == "A"){
             console.log("socket call, first turn");
             sb.setStatus(Status["player1FirstTurn"]);
+            //sb.setStatus(Status["playerSecondIntro"]);
+            bb.initialize();
+            gs.updateGame(incomingMsg.data);
+        }
+          //Play first turn B and update game 
+          if (incomingMsg.type == Messages.T_FIRSTTURN && gs.getPlayerType() == "B"){
+            console.log("socket call, first turn");
+            sb.setStatus(Status["player2FirstTurn"]);
             //sb.setStatus(Status["playerSecondIntro"]);
             bb.initialize();
             gs.updateGame(incomingMsg.data);

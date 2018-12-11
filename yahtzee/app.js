@@ -94,13 +94,13 @@ wss.on("connection", function connection(ws) {
              * if player B is already available, send message to B
              */
             if (oMsg.type == messages.T_FIRSTTURN) {
-                gameObj.setWord(oMsg.data);
 
                 if(gameObj.hasTwoConnectedPlayers()){
-                    gameObj.playerB.send(message); 
+                    gameObj.playerA.send(messages); 
                 }                
             }
 
+            
             if(oMsg.type == messages.T_MAKE_A_TURN){
                 gameObj.playerB.send(message);
                 gameObj.setStatus("MADE A TURN");
@@ -121,6 +121,13 @@ wss.on("connection", function connection(ws) {
              * player B can make a guess; 
              * this guess is forwarded to A
              */ 
+            console.log("app caller player B, zit nog niet in firstTurn")
+
+            if (oMsg.type == messages.T_FIRSTTURN) {
+                console.log("app caller player B, zit in firstTurn")
+                gameObj.playerA.send(message); 
+            }
+
             if(oMsg.type == messages.T_MAKE_A_TURN){
                 gameObj.playerA.send(message);
                 gameObj.setStatus("MADE A TURN");
@@ -128,6 +135,7 @@ wss.on("connection", function connection(ws) {
             }   
         }
     });
+
 
     con.on("close", function (code) {
         
