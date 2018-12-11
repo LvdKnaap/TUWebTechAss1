@@ -110,11 +110,10 @@ wss.on("connection", function connection(ws) {
 
             
             if(oMsg.type == messages.T_MAKE_A_TURN){
+                console.log("sore is: " + message.data);
                 gameObj.playerB.send(message);
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));
-
-                
                 // hier hier todo 
                 gameStatus.turnsPlayed++;
             }
@@ -141,6 +140,7 @@ wss.on("connection", function connection(ws) {
             }
 
             if(oMsg.type == messages.T_MAKE_A_TURN){
+                console.log("sore is: " + message.data);
                 gameObj.playerA.send(message);
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));
