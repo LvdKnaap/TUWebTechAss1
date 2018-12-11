@@ -44,6 +44,17 @@
         type: exports.T_FIRSTTURN,
         data: null
     };
+
+    /* 
+     *Player A to server: zero turn
+     */
+   exports.T_ZEROTURN = "ZERO TURN";
+   exports.O_ZEROTURN = {                         
+       type: exports.T_ZEROTURN,
+       data: null
+   };
+
+
     //exports.S_TARGET_WORD does not exist, as we always need to fill the data property
 
     /* 

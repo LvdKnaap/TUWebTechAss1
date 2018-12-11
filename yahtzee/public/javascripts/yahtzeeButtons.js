@@ -28,11 +28,12 @@ function YahtzeeButtons() {
         return this.buttons[button] == AVAIL;
     };
 
-    this.makeButtonUnAvailable = function (button) {
+    this.makeButtonUnAvailable = function(button) {
         this.buttons[button] = USED;
 
         //visually switch off the UI element by simply adding a classname
         document.getElementById(button).disabled = true;
+        document.getElementById(button).className += " buttonUsed"; // welke?
     };
 }
 

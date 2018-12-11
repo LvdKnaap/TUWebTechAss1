@@ -8,8 +8,9 @@ Status["player1Intro"] = "Welcome, you are player 1. We are currently waiting fo
 Status["player2Intro"] = "Welcome, you are player 2. Player 1 will now start!";
 Status["bothPlayerIntro"] = "Two players are connected. Time to start!";
 Status["player1FirstTurn"] = "It is your turn to start";
-Status["player1NewTurn"] = "Player 2 has made a turn. Now it is your turn";
-Status["player2NewTurn"] = "Player 1 has made a turn. Now it is your turn";
+Status["newTurn"] = "Your opponent has made a turn. Now it is your turn";
+Status["Wait"] = "Your opponent is playing";
+
 Status["aborted"] = "Your opponent aborted the game. " + Status["playAgain"];
 
 /*

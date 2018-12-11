@@ -104,13 +104,18 @@ wss.on("connection", function connection(ws) {
             if (oMsg.type == messages.T_FIRSTTURN) {
 
                 if(gameObj.hasTwoConnectedPlayers()){
-                    gameObj.playerA.send(messages); 
+                    gameObj.playerA.send(message); 
                 }                
             }
 
+            if (oMsg.type == messages.T_ZEROTURN) {
+                gameObj.playerB.send(message);                
+            }
+
+
             
             if(oMsg.type == messages.T_MAKE_A_TURN){
-                console.log("sore is: " + message.data);
+                console.log("score is: " + oMsg.data + " message is: " + message);
                 gameObj.playerB.send(message);
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));
@@ -132,15 +137,13 @@ wss.on("connection", function connection(ws) {
              * player B can make a guess; 
              * this guess is forwarded to A
              */ 
-            console.log("app caller player B, zit nog niet in firstTurn")
-
             if (oMsg.type == messages.T_FIRSTTURN) {
                 console.log("app caller player B, zit in firstTurn")
                 gameObj.playerA.send(message); 
             }
 
             if(oMsg.type == messages.T_MAKE_A_TURN){
-                console.log("sore is: " + message.data);
+                console.log("score is: " + oMsg.data + " message is: " + message);
                 gameObj.playerA.send(message);
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));

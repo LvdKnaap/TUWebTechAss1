@@ -29,11 +29,16 @@ function GameState(sb, socket){
         if (this.playerType == "B" && this.NoTurns != 13) {
             return null; //nobody won yet
         }
+        if (this.NoTurns == 13) {
+            return "A";
+        }
+        /* HIER HIER HIER HIER 
         if (this.playerPoints == 10) { //that.playerPoints) { // that.playerPoints denotes opponents points
             return "draw";
         } else {
             return this.playerPoints > 100 ? "A" : "B"; //that.playerPoints ? "A" : "B"; // idem dito
         }
+        */
     };
 
 
@@ -41,18 +46,15 @@ function GameState(sb, socket){
         
     }
 
-    this.updateGame = function(clickedButton){
+    this.updateGame = function(scoreOpponent){
 
-        console.log("update game call");
-
-
-        this.yahtzeeButtons.makeButtonUnAvailable(clickedButton);
+        // this.yahtzeeButtons.makeButtonUnAvailable(clickedButton);
 
         var outgoingMsg = Messages.O_MAKE_A_TURN;
-        arrayScoreOpponent = outgoingMsg.data;
+        outgoingMsg.data = scoreOpponent;
+        console.log("updateGame, waarde die meegegeven wordt: " + outgoingMsg.data);
 
-
-        outgoingMsg.data = arrayScoreThis;
+        // outgoingMsg.data = arrayScoreThis;
         socket.send(JSON.stringify(outgoingMsg));
 
         //is the game complete?
@@ -86,14 +88,17 @@ function ButtonBoard(gs){
     // FALSE
     this.initialize = function(){
 
-        var elements = document.querySelectorAll(".yahtzeeButtons");
+        var elements = document.querySelectorAll(".categorie");
         Array.from(elements).forEach( function(el){
 
             el.addEventListener("click", function singleClick(e){
-                var clickedButton = e.target.id;
+                console.log(e.target.id);
+                let tempString = e.target.id.substring(6, e.target.id.length).toLowerCase() + 'Player1';
+                console.log(tempString);
+                var scoreOpponent = document.getElementById(tempString).innerHTML;
                 new Audio("../data/click.wav").play();
-                console.log("event lisener call");
-                gs.updateGame(clickedButton);
+                console.log("event listener call");
+                gs.updateGame(scoreOpponent);
 
                 /*
                  * every letter can only be selected once; handling this within
@@ -150,9 +155,8 @@ function disableButtons() {
             else
             {
                 sb.setStatus(Status["player2Intro"]);
-                console.log("Player B joined");
                 let outgoingMsg = Messages.O_FIRSTTURN;
-                outgoingMsg.data = 0;
+                outgoingMsg.data = "";
                 socket.send(JSON.stringify(outgoingMsg));
             }
         }
@@ -163,23 +167,31 @@ function disableButtons() {
             sb.setStatus(Status["player1FirstTurn"]);
             //sb.setStatus(Status["playerSecondIntro"]);
             bb.initialize();
-            gs.updateGame(incomingMsg.data);
+            let outgoingMsg = Messages.O_ZEROTURN;
+            outgoingMsg.data = "";
+            socket.send(JSON.stringify(outgoingMsg));
         }
           //Play first turn B and update game , still necessary???
-          if (incomingMsg.type == Messages.T_FIRSTTURN && gs.getPlayerType() == "B"){
+          if (incomingMsg.type == Messages.T_ZEROTURN){
             console.log("socket call, first turn");
-            sb.setStatus(Status["player2FirstTurn"]);
-            //sb.setStatus(Status["playerSecondIntro"]);
+            sb.setStatus(Status["Wait"]);
             bb.initialize();
-            gs.updateGame(incomingMsg.data);
         }
 
-        //waarsch werkt dit niet omdat we in update game zitten
         //Play turn and update game 
         if( incomingMsg.type == Messages.T_MAKE_A_TURN){
-            console.log("socket call, update board with guesses");
-            sb.setStatus(Status["played"] + incomingMsg.data);
-            gs.updateGame(incomingMsg.data);
+            console.log("socket call, update board with turn, current data is: " + incomingMsg.data + "message is" + incomingMsg + " number of turns:" + gs.NoTurns);
+            let curr = parseInt(incomingMsg.data);
+            console.log(curr);
+            if (document.getElementById("totalScorePlayer2").innerHTML) {
+                curr = curr + parseInt(document.getElementById("totalScorePlayer2").innerHTML);
+                console.log(curr);
+            }
+            document.getElementById("totalScorePlayer2").innerHTML = curr;
+            
+            // document.getElementById("totalScorePlayer2").innerHTML = '1';
+            sb.setStatus(Status["newTurn"]);
+            console.log("werkt dit?");            
         }
     };
 

@@ -150,9 +150,6 @@ function smallStraight() {
         categorySelected();
 
     }
-    var outgoingMsg = Messages.O_MAKE_A_TURN;
-    outgoingMsg.data = "5";
-    socket.send(JSON.stringify(outgoingMsg));
 }
 
 function largeStraight() {
