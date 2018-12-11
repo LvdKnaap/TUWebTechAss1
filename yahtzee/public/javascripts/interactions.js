@@ -121,6 +121,8 @@ function disableButtons() {
      * 
      * the GameState object coordinates everything
      */ 
+    
+    
     var sb = new StatusBar();
 
     var gs = new GameState(sb, socket);

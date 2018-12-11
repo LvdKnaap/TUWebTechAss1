@@ -4,7 +4,7 @@ var Status = {};
 Status["gameWon"] = "You just won! Lucky...";
 Status["gameLost"] = "You just lost! Unlucky...";
 Status["playAgain"] = " <a href='/play'>Play again!</a>";
-Status["player1Intro"] = "Welcome, you are player 1. We are currently waiting for player 2";
+Status["player1Intro"] = "Welcome, you are player 1. We are currently waiting for player 2!";
 Status["player2Intro"] = "Welcome, you are player 2. Time to start!";
 Status["bothPlayerIntro"] = "Two players are connected. Time to start!";
 Status["player1FirstTurn"] = "It is your turn to start";
