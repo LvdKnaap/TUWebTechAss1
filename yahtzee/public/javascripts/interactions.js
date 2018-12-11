@@ -96,7 +96,8 @@ function ButtonBoard(gs){
                 console.log(e.target.id);
                 let tempString = e.target.id.substring(6, 7).toLowerCase() + e.target.id.substring(7, e.target.id.length) + 'Player1';
                 console.log(tempString);
-                let yahtzeeKind = tempString.substring(tempString.length-1) + "2";
+                let yahtzeeKind = tempString.substring(0,tempString.length-1) + "2";
+                console.log(yahtzeeKind);
                 let dataArray = [document.getElementById("totalRemainingPointsBonusPlayer1").innerHTML,
                 document.getElementById("bonusScorePlayer1").innerHTML, 
                 document.getElementById("totalUpperScorePlayer1").innerHTML,
