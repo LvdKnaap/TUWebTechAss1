@@ -33,11 +33,6 @@ function YahtzeeButtons() {
 
         //visually switch off the UI element by simply adding a classname
         document.getElementById(button).className += " buttonUsed";
-<<<<<<< HEAD
     };
 }
 
-=======
-    }
-};
->>>>>>> 14410e034dced6111b1bc777e40550e55db6150e
