@@ -93,7 +93,9 @@ function ButtonBoard(gs){
 
             el.addEventListener("click", function singleClick(e){
                 console.log(e.target.id);
-                let tempString = e.target.id.substring(6, e.target.id.length).toLowerCase() + 'Player1';
+                 let tempString = e.target.id.substring(6, e.target.id.length).toLowerCase() + 'Player1';
+                //let tempString = e.target.id.substring(6, 7).toLowerCase() + e.target.id.substring(7, e.target.id.length).toLowerCase() + 'Player1';
+
                 console.log(tempString);
                 var scoreOpponent = document.getElementById(tempString).innerHTML;
                 new Audio("../data/click.wav").play();
@@ -188,8 +190,6 @@ function disableButtons() {
                 console.log(curr);
             }
             document.getElementById("totalScorePlayer2").innerHTML = curr;
-            
-            // document.getElementById("totalScorePlayer2").innerHTML = '1';
             sb.setStatus(Status["newTurn"]);
             console.log("werkt dit?");            
         }
