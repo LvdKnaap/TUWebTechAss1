@@ -92,15 +92,21 @@ function ButtonBoard(gs){
         Array.from(elements).forEach( function(el){
 
             el.addEventListener("click", function singleClick(e){
+               
                 console.log(e.target.id);
-                 let tempString = e.target.id.substring(6, e.target.id.length).toLowerCase() + 'Player1';
-                //let tempString = e.target.id.substring(6, 7).toLowerCase() + e.target.id.substring(7, e.target.id.length).toLowerCase() + 'Player1';
-
+                let tempString = e.target.id.substring(6, 7).toLowerCase() + e.target.id.substring(7, e.target.id.length) + 'Player1';
                 console.log(tempString);
-                var scoreOpponent = document.getElementById(tempString).innerHTML;
+                let yahtzeeKind = tempString.substring(tempString.length-1) + "2";
+                let dataArray = [document.getElementById("totalRemainingPointsBonusPlayer1").innerHTML,
+                document.getElementById("bonusScorePlayer1").innerHTML, 
+                document.getElementById("totalUpperScorePlayer1").innerHTML,
+                document.getElementById("totalLowerScorePlayer1").innerHTML,
+                document.getElementById("totalScorePlayer1").innerHTML,
+                document.getElementById(tempString).innerHTML,
+                yahtzeeKind];
                 new Audio("../data/click.wav").play();
                 console.log("event listener call");
-                gs.updateGame(scoreOpponent);
+                gs.updateGame(dataArray);
 
                 /*
                  * every letter can only be selected once; handling this within
@@ -183,16 +189,15 @@ function disableButtons() {
         //Play turn and update game 
         if( incomingMsg.type == Messages.T_MAKE_A_TURN){
             console.log("socket call, update board with turn, current data is: " + incomingMsg.data + "message is" + incomingMsg.type + " number of turns:" + gs.NoTurns);
-            let curr = parseInt(incomingMsg.data);
-            console.log("begin  zero current: " + curr);
-            if (document.getElementById("totalScorePlayer2").innerHTML) {
-                curr = curr + parseInt(document.getElementById("totalScorePlayer2").innerHTML);
-                console.log("al een waarde current: " + curr);
-            }
-            document.getElementById("totalScorePlayer2").innerHTML = curr;
             
+            let dataArray = incomingMsg.data;
+            document.getElementById("totalRemainingPointsBonusPlayer2").innerHTML = dataArray[0];
+            document.getElementById("bonusScorePlayer2").innerHTML = dataArray[1];
+            document.getElementById("totalUpperScorePlayer2").innerHTML = dataArray[2];
+            document.getElementById("totalLowerScorePlayer2").innerHTML = dataArray[3];
+            document.getElementById("totalScorePlayer2").innerHTML = dataArray[4];
+            document.getElementById(dataArray[6]).innerHTML = dataArray[5];
             sb.setStatus(Status["newTurn"]);
-            console.log("werkt dit?");            
         }
     };
 
