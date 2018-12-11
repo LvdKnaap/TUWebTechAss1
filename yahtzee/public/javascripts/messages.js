@@ -18,12 +18,6 @@
     exports.S_GAME_ABORTED = JSON.stringify(exports.O_GAME_ABORTED);
 
     /*
-     * Server to client: choose target word
-     */
-    exports.O_CHOOSE = { type: "CHOOSE-WORD" };
-    exports.S_CHOOSE = JSON.stringify(exports.O_CHOOSE);
-
-    /*
      * Server to client: set as player A 
      */
     exports.T_PLAYER_TYPE = "PLAYER-TYPE";

@@ -1,13 +1,4 @@
-:root {
-    --yellow: yellow;
-    --green1: seagreen;
-    --green2: darkgreen;
-    --green3: forestgreen;
-    --red1: darkred;
-    --red2: tomato;
-}
-
-/* structuur */
+@import 'rootStyle.css';
 
 .kolom {
     float: left;

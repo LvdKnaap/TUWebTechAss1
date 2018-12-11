@@ -5,6 +5,11 @@ var websocket = require("ws");
 var indexRouter = require("./routes/index");
 var messages = require("./public/javascripts/messages");
 
+
+var credentials = require("./credentials");
+var cookies = require("cookie-parser");
+var sessions = require("express-sessions");
+
 var gameStatus = require("./statTracker");
 var Game = require("./game");
 
@@ -16,9 +21,12 @@ app.use(express.static(__dirname + "/public"));
 
 app.get("/play", indexRouter);
 
+
+
+
 //TODO: move to routes/index
 app.get("/", (req, res) => {
-    res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, gamesCompleted: gameStatus.gamesCompleted });
+    res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, gamesCompleted: gameStatus.gamesCompleted, turnsPlayed: gameStatus.turnsPlayed });
 });
 
 var server = http.createServer(app);
@@ -105,6 +113,10 @@ wss.on("connection", function connection(ws) {
                 gameObj.playerB.send(message);
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));
+
+                
+                // hier hier todo 
+                gameStatus.turnsPlayed++;
             }
             /*
              * player A can state who won/lost
@@ -132,6 +144,9 @@ wss.on("connection", function connection(ws) {
                 gameObj.playerA.send(message);
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));
+
+                // hier hier todo 
+                gameStatus.turnsPlayed++;
             }   
         }
     });
