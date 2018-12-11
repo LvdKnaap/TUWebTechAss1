@@ -75,10 +75,6 @@ game.prototype.setStatus = function (w) {
         return new Error("Impossible status change from %s to %s", this.gameState, w);
     }
 };
-<<<<<<< HEAD
-=======
-
->>>>>>> 14410e034dced6111b1bc777e40550e55db6150e
 game.prototype.hasTwoConnectedPlayers = function () {
     return (this.gameState == "2 JOINT");
 };
