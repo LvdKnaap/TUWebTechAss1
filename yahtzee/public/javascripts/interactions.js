@@ -180,16 +180,15 @@ function disableButtons() {
 
         //Play turn and update game 
         if( incomingMsg.type == Messages.T_MAKE_A_TURN){
-            console.log("socket call, update board with turn, current data is: " + incomingMsg.data + "message is" + incomingMsg + " number of turns:" + gs.NoTurns);
+            console.log("socket call, update board with turn, current data is: " + incomingMsg.data + "message is" + incomingMsg.type + " number of turns:" + gs.NoTurns);
             let curr = parseInt(incomingMsg.data);
-            console.log(curr);
+            console.log("begin  zero current: " + curr);
             if (document.getElementById("totalScorePlayer2").innerHTML) {
                 curr = curr + parseInt(document.getElementById("totalScorePlayer2").innerHTML);
-                console.log(curr);
+                console.log("al een waarde current: " + curr);
             }
             document.getElementById("totalScorePlayer2").innerHTML = curr;
             
-            // document.getElementById("totalScorePlayer2").innerHTML = '1';
             sb.setStatus(Status["newTurn"]);
             console.log("werkt dit?");            
         }
