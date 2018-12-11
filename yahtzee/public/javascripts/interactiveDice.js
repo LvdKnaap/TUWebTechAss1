@@ -1,3 +1,25 @@
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+setInterval(setTime, 1000);
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
+
+
+
 let throwsLeft = 3;
 let selected = [false, false, false, false, false];
 let currDice = [0, 0, 0, 0, 0];
@@ -6,6 +28,7 @@ let totScore = 0;
 let bonusUnlockedPlayer1 = false;
 let selectedCategories = 0;
 let currentScore = 0;
+let leadingPlayer = null;
 
 function throwDice() {
     if (throwsLeft > 0) {
@@ -48,6 +71,24 @@ function deselectAll() {
 
 function categorySelected() {
     selectedCategories++;
+    console.log(selectedCategories);
+    document.getElementById("turnNumber").innerHTML = selectedCategories;
+    let yourScore = parseInt(document.getElementById("totalScorePlayer1").innerHTML);
+    let otherScore = 0;
+    if (document.getElementById("totalScorePlayer2").innerHTML) {
+        otherScore = parseInt(document.getElementById("totalScorePlayer2").innerHTML);
+    }
+    console.log(yourScore + " " + otherScore);
+    if (yourScore == otherScore) {
+        document.getElementById("leadingPlayer").innerHTML = 'Draw';
+    } else if (yourScore > otherScore) {
+        document.getElementById("leadingPlayer").innerHTML = 'You';
+    } else {
+        document.getElementById("leadingPlayer").innerHTML = 'Opponent';
+    }
+
+
+
     if (selectedCategories == 13) {
         window.alert("congrats, you got " + totScore +  " points");
     }
