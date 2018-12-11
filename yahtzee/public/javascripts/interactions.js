@@ -5,6 +5,7 @@
 function GameState(sb, socket){
 
     this.playerType = null;
+    this.playerPoints = 0;
     this.NoTurns = 0;
     this.yahtzeeButtons = new YahtzeeButtons();
     this.yahtzeeButtons.initialize();
@@ -24,20 +25,21 @@ function GameState(sb, socket){
     };
 
     this.whoWon = function(){
-        //too many wrong guesses? Player A (who set the word) won
-        if( this.wrongGuesses>Setup.MAX_ALLOWED_GUESSES){
-            return "A";
+        if (this.playerType == "B" && this.NoTurns != 13) {
+            return null; //nobody won yet
         }
-        //word solved? Player B won
-        if( this.visibleWordArray.indexOf("#")<0){
-            return "B";
+        if (this.playerPoints == that.playerPoints) { // that.playerPoints denotes opponents points
+            return "draw";
+        } else {
+            return this.playerPoints > that.playerPoints ? "A" : "B"; // idem dito
         }
-        return null; //nobody won yet
     };
 
-    this.updateScore = function(){
-    };
-    
+
+    this.updateScore = function(){ // ?? todo?
+        
+    }
+
     this.updateGame = function(clickedButton){
 
         console.log("update game call");
@@ -76,7 +78,8 @@ function GameState(sb, socket){
 
 function ButtonBoard(gs){
 
-    //only initialize for player that should actually be able to use the board
+    //only initialize for player that should actually be able to use the board      
+    // FALSE
     this.initialize = function(){
 
         var elements = document.querySelectorAll(".yahtzeeButtons");
@@ -139,6 +142,7 @@ function disableButtons() {
             else
             {
                 sb.setStatus(Status["player2Intro"]);
+                //todo message
             }
             let outgoingMsg = Messages.T_FIRSTTURN;
             socket.send(JSON.stringify(outgoingMsg));
@@ -147,8 +151,8 @@ function disableButtons() {
         //Play first turn and update game 
         if (incomingMsg.type == Messages.T_FIRSTTURN){
             console.log("socket call, first turn");
-
-            sb.setStatus(Status["playerSecondIntro"]);
+            sb.setStatus(Status["player1FirstTurn"]);
+            //sb.setStatus(Status["playerSecondIntro"]);
             bb.initialize();
             gs.updateGame(incomingMsg.data);
         }

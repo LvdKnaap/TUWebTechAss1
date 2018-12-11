@@ -15,15 +15,15 @@
   <main>
 
     <div class="kolom">
-      
-    <nav>
+
+      <nav>
         <a href="https://en.wikipedia.org/wiki/Yahtzee#Rules">How to play</a> |
         <a href="https://en.wikipedia.org/w/index.php?title=Yahtzee&action=edit&section=2">Make your own rules</a> |
         <a href="http://www.virtualcointoss.com/">About the authors</a>
       </nav>
       <p id="lowResolution">Your resolution is too small, please enlargen the screen.</p>
       <img src="data/logo2.png" alt="Logo" width="250" height="150">
-      <h2 id ="refThrowDice"> Click button below to roll dice</h2>
+      <h2 id="refThrowDice"> Click button below to roll dice</h2>
       <section class='dobbelstenen'>
         <input class='dobbelsteen' type="button" value="?" id="die1" onclick=selectDeselect(0)></input>
         <input class='dobbelsteen' type="button" value="?" id="die2" onclick=selectDeselect(1)></input>
@@ -37,14 +37,13 @@
         <input class="klikOmTeGooienKnop" type="button" value="Click here to throw" onclick=throwDice()></input>
 
         <div id="status">
-            <span id="statusbar"></span>
+          <span id="statusbar"></span>
         </div>
 
 
       </section>
     </div>
     <div class="kolom">
-      <script src="javascripts/interactiveDice.js"></script>
       <section class='scorekaart'>
         <table>
           <tr>
@@ -223,6 +222,15 @@
   </main>
   <footer>
   </footer>
+  <script src="javascripts/config.js"></script>
+  <script src="javascripts/interactions.js"></script>
+  <script src="javascripts/interactiveDice.js"></script>
+  <script src="javascripts/messages.js"></script>
+  <script src="javascripts/statuses.js"></script>
+  <script src="javascripts/throwDice.js"></script>
+  <script src="javascripts/ui-right.js"></script>
+  <script src="javascripts/yahtzeeButtons.js"></script>
+  <script src="javascripts/yahtzeeScores.js"></script>
 </body>
 
 </html>

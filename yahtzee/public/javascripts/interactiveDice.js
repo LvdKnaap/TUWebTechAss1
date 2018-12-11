@@ -7,10 +7,6 @@ let bonusUnlockedPlayer1 = false;
 let selectedCategories = 0;
 let currentScore = 0;
 
-
-
-
-
 function throwDice() {
     if (throwsLeft > 0) {
         for (let i = 0; i < selected.length; i++) {
