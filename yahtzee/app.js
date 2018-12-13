@@ -1,14 +1,12 @@
 var express = require("express");
 var http = require("http");
+var credentials = require("./credentials");
+var cookies = require("cookie-parser");
+var sessions = require("express-session");
 var websocket = require("ws");
 
 var indexRouter = require("./routes/index");
 var messages = require("./public/javascripts/messages");
-
-
-var credentials = require("./credentials");
-var cookies = require("cookie-parser");
-var sessions = require("express-sessions");
 
 var gameStatus = require("./statTracker");
 var Game = require("./game");
