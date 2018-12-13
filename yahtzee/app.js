@@ -13,7 +13,7 @@ var Game = require("./game");
 
 var port = process.argv[2];
 var app = express();
-
+x
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
@@ -123,6 +123,16 @@ wss.on("connection", function connection(ws) {
         let gameObj = websockets[con.id];
         let isPlayerA = (gameObj.playerA == con) ? true : false;
 
+        /*
+        * player A can state who won/lost
+        */ 
+        if( oMsg.type == messages.T_GAME_WON_BY){
+            console.log("GAME won by: " + oMsg.data);
+            gameObj.setStatus(oMsg.data);
+            //game was won by somebody, update statistics
+            gameStatus.gamesCompleted++;
+        }  
+
         if (isPlayerA) {
             console.log("app caller player A, message: " + message);
 
@@ -151,14 +161,6 @@ wss.on("connection", function connection(ws) {
                 console.log(gameObj.setStatus("MADE A TURN"));
 
                 gameStatus.turnsPlayed++; // hier hier turn counter 
-            }
-            /*
-             * player A can state who won/lost
-             */
-            if (oMsg.type == messages.T_GAME_WON_BY) {
-                gameObj.setStatus(oMsg.data);
-                //game was won by somebody, update statistics
-                gameStatus.gamesCompleted++;
             }
         }
         else {
@@ -198,6 +200,7 @@ wss.on("connection", function connection(ws) {
             */
             let gameObj = websockets[con.id];
 
+            console.log("HIJ verlaat hier")
             if (gameObj.isValidTransition(gameObj.gameState, "ABORTED")) {
                 gameObj.setStatus("ABORTED");
                 gameStatus.gamesAborted++;

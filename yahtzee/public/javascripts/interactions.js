@@ -7,7 +7,7 @@ function GameState(sb, socket){
     this.playerType = null;
     this.playerPoints = 0;
     this.arrayScoreThis = ["","","","","","","","","","","","",""];
-    this.NoTurns = 0;
+    this.NoTurnsPlayer2 = 0;
     this.yahtzeeButtons = new YahtzeeButtons();
     this.yahtzeeButtons.initialize();
     this.statusBar = sb;
@@ -21,24 +21,33 @@ function GameState(sb, socket){
         this.playerType = p;
     };
 
+    this.setTurnsPlayer2 = function (turns) {
+       
+        this.NoTurnsPlayer2 = turns;
+    };
+
     this.incrNoTurns = function(){
         this.NoTurns++;
     };
 
-    this.whoWon = function(){
-        if (this.playerType == "B" && this.NoTurns != 13) {
+    this.whoWon = function(turns){
+        console.log("turns: " + turns + " noturnsplayer2 " + NoTurnsPlayer2);
+        if (turns != 3) {
             return null; //nobody won yet
         }
-        if (this.NoTurns == 13) {
-            return "A";
+        
+        if (turns == 3 && NoTurnsPlayer2 == 3) {
+            console.log("we zitten turns===13")
+
+            if(document.getElementById("totalScorePlayer1").innerHTML > document.getElementById("totalScorePlayer2").innerHTML){
+                console.log("return A")
+
+                return "A";
+            }
+            else{
+                return "B";
+            }
         }
-        /* HIER HIER HIER HIER 
-        if (this.playerPoints == 10) { //that.playerPoints) { // that.playerPoints denotes opponents points
-            return "draw";
-        } else {
-            return this.playerPoints > 100 ? "A" : "B"; //that.playerPoints ? "A" : "B"; // idem dito
-        }
-        */
     };
 
 
@@ -58,9 +67,10 @@ function GameState(sb, socket){
         socket.send(JSON.stringify(outgoingMsg));
 
         //is the game complete?
-        let winner = this.whoWon();
+        let winner = this.whoWon(scoreOpponent[7]);
         
         if(winner != null){
+            console.log("we zitten in winner!=null")
             let alertString;
             if( winner == this.playerType){
                 alertString = Status["gameWon"];
@@ -71,16 +81,16 @@ function GameState(sb, socket){
             alertString += Status["playAgain"];
             sb.setStatus(alertString);
 
-            //player A sends final message
-            if(this.playerType == "A"){
-                let finalMsg = Messages.O_GAME_WON_BY;
-                finalMsg.data = winner;
-                socket.send(JSON.stringify(finalMsg));
-            }
+            let finalMsg = Messages.O_GAME_WON_BY;
+            finalMsg.data = winner;
+            console.log(finalMsg + "data: " + finalMsg.data);
+
+            socket.send(JSON.stringify(finalMsg));
             socket.close();
         }
     };
 }
+
 
 function ButtonBoard(gs){
 
@@ -104,7 +114,8 @@ function ButtonBoard(gs){
                 document.getElementById("totalLowerScorePlayer1").innerHTML,
                 document.getElementById("totalScorePlayer1").innerHTML,
                 document.getElementById(tempString).innerHTML,
-                yahtzeeKind];
+                yahtzeeKind,
+                document.getElementById("turnNumber").innerHTML];
                 new Audio("../data/click.wav").play();
                 console.log("event listener call");
                 gs.updateGame(dataArray);
@@ -157,6 +168,7 @@ function disableButtons() {
             gs.setPlayerType( incomingMsg.data );//should be "A" or "B"
             if (gs.getPlayerType()=="A")
             {
+                document.getElementById("throwDice").disabled = true;
                 sb.setStatus(Status["player1Intro"]);
                 console.log("Now wait for player 2 (B)");
                 //Now wait for player 2 (B), do nothing
@@ -172,6 +184,7 @@ function disableButtons() {
 
         //Play first turn A and update game 
         if (incomingMsg.type == Messages.T_FIRSTTURN && gs.getPlayerType() == "A"){
+            document.getElementById("throwDice").disabled = false;
             console.log("socket call, first turn");
             sb.setStatus(Status["player1FirstTurn"]);
             //sb.setStatus(Status["playerSecondIntro"]);
@@ -183,7 +196,7 @@ function disableButtons() {
           //Play first turn B and update game , still necessary???
           if (incomingMsg.type == Messages.T_ZEROTURN){
             console.log("socket call, first turn");
-            sb.setStatus(Status["Wait"]);
+            sb.setStatus(Status["newTurn"]);
             bb.initialize();
         }
 
@@ -198,6 +211,7 @@ function disableButtons() {
             document.getElementById("totalLowerScorePlayer2").innerHTML = dataArray[3];
             document.getElementById("totalScorePlayer2").innerHTML = dataArray[4];
             document.getElementById(dataArray[6]).innerHTML = dataArray[5];
+            gs.setTurnsPlayer2(dataArray[7]);
             sb.setStatus(Status["newTurn"]);
         }
     };
