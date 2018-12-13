@@ -8,7 +8,9 @@ var gameStatus = {
     gamesInitialized : 0,   /* number of games initialized */
     gamesAborted : 0,       /* number of games aborted */
     gamesCompleted : 0,      /* number of games successfully completed */
-    turnsPlayed : 0
+    turnsPlayed : 0,
+    currWaiting : 0
+
 };
 
 module.exports = gameStatus;
