@@ -17,9 +17,6 @@ function pad(val) {
     return valString;
   }
 }
-
-
-
 let throwsLeft = 3;
 let selected = [false, false, false, false, false];
 let currDice = [0, 0, 0, 0, 0];
@@ -28,6 +25,8 @@ let totScore = 0;
 let bonusUnlockedPlayer1 = false;
 let selectedCategories = 0;
 let leadingPlayer = null;
+
+
 
 function throwDice() {
     if (throwsLeft > 0) {
@@ -88,9 +87,9 @@ function categorySelected() {
 
 
 
-    if (selectedCategories == 13) {
-        window.alert("congrats, you got " + totScore +  " points");
-    }
+    //if (selectedCategories == 13) {
+    //    window.alert("congrats, you got " + totScore +  " points");
+    //}
     throwsLeft = 3;
     remainingThrows.innerHTML = 'Remaining throws: ' + throwsLeft;
     for (let i = 0; i < selected.length; i++) {
@@ -334,7 +333,7 @@ function fourOfAKind() {
         totScore = lowerScore + upperScore;
         totalScorePlayer1.innerHTML = totScore;
         categorySelected();
-        document.getElementById("buttonFourOfAKind").disabled = true;
+        document.getElemenftById("buttonFourOfAKind").disabled = true;
         document.getElementById("fourOfAKindPlayer1").style.color = 'darkred';
     }
 }
@@ -351,7 +350,6 @@ function chance() {
         totScore = lowerScore + upperScore;
         totalScorePlayer1.innerHTML = totScore;
         categorySelected();
-        document.getElementById("buttonChance").disabled = true;
         document.getElementById("chancePlayer1").style.color = 'darkred';
     }
 }

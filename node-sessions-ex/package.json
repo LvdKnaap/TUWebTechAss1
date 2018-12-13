@@ -1,0 +1,11 @@
+{
+  "name": "node-sessions-ex",
+  "version": "0.1.0",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4",
+    "express-session": "^1.15.6"
+  },
+  "author": "Claudia Hauff",
+  "license": "MIT"
+}

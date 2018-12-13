@@ -22,7 +22,30 @@ app.use(express.static(__dirname + "/public"));
 app.get("/play", indexRouter);
 
 
+/////////////////////////
+app.use(cookies(credentials.cookieSecret));
+var sessionConfiguration = {
+	// Code is slightly adjusted to avoid deprecation warnings when running the code.
+	secret: credentials.cookieSecret,
+	resave: false,
+	saveUninitialized: true,
+};
+app.use(sessions(sessionConfiguration));
 
+app.get("/countMe", function (req, res) {
+	var session = req.session;
+	if (session.views) {
+		session.views++;
+		res.send("You have been here " + session.views + " times (last visit: " + session.lastVisit + ")");
+		session.lastVisit = new Date().toLocaleDateString();
+	}
+	else {
+		session.views = 1;
+		session.lastVisit = new Date().toLocaleDateString();
+		res.send("This is your first visit!");
+	}
+});
+////////////////////////////////////
 
 //TODO: move to routes/index
 app.get("/", (req, res) => {
@@ -94,6 +117,16 @@ wss.on("connection", function connection(ws) {
         let gameObj = websockets[con.id];
         let isPlayerA = (gameObj.playerA == con) ? true : false;
 
+        /*
+        * player A can state who won/lost
+        */ 
+        if( oMsg.type == messages.T_GAME_WON_BY){
+            console.log("GAME won by: " + oMsg.data);
+            gameObj.setStatus(oMsg.data);
+            //game was won by somebody, update statistics
+            gameStatus.gamesCompleted++;
+        }  
+
         if (isPlayerA) {
             console.log("app caller player A, message: " + message);
 
@@ -122,14 +155,6 @@ wss.on("connection", function connection(ws) {
                 // hier hier todo 
                 gameStatus.turnsPlayed++;
             }
-            /*
-             * player A can state who won/lost
-             */ 
-            if( oMsg.type == messages.T_GAME_WON_BY){
-                gameObj.setStatus(oMsg.data);
-                //game was won by somebody, update statistics
-                gameStatus.gamesCompleted++;
-            }  
         }
         else {
             console.log("app caller player B, message: " + message);
@@ -148,7 +173,6 @@ wss.on("connection", function connection(ws) {
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));
 
-                // hier hier todo 
                 gameStatus.turnsPlayed++;
             }   
         }
@@ -169,6 +193,7 @@ wss.on("connection", function connection(ws) {
             */
             let gameObj = websockets[con.id];
 
+            console.log("HIJ verlaat hier")
             if (gameObj.isValidTransition(gameObj.gameState, "ABORTED")) {
                 gameObj.setStatus("ABORTED"); 
                 gameStatus.gamesAborted++;
