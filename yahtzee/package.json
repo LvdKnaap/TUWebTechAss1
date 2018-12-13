@@ -12,6 +12,7 @@
     "ejs": "~2.5.7",
     "express": "^4.16.3",
     "express-session": "file:node_modules/express-session",
+    "express-sessions": "^1.0.6",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "ws": "^6.1.2"

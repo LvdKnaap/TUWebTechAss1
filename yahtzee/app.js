@@ -8,14 +8,14 @@ var messages = require("./public/javascripts/messages");
 
 var credentials = require("./credentials");
 var cookies = require("cookie-parser");
-var sessions = require("express-sessions");
+var sessions = require("express-session");
 
 var gameStatus = require("./statTracker");
 var Game = require("./game");
 
 var port = process.argv[2];
 var app = express();
-
+x
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
@@ -157,17 +157,6 @@ wss.on("connection", function connection(ws) {
                 
                 gameStatus.turnsPlayed++; // hier hier turn counter 
             }
-<<<<<<< HEAD
-=======
-            /*
-             * player A can state who won/lost
-             */
-            if (oMsg.type == messages.T_GAME_WON_BY) {
-                gameObj.setStatus(oMsg.data);
-                //game was won by somebody, update statistics
-                gameStatus.gamesCompleted++;
-            }
->>>>>>> 36436bb65b85150f9650ffa51c0199fcb67decbc
         }
         else {
             console.log("app caller player B, message: " + message);
@@ -185,15 +174,9 @@ wss.on("connection", function connection(ws) {
                 gameObj.playerA.send(message);
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));
-<<<<<<< HEAD
-
-                gameStatus.turnsPlayed++;
-            }   
-=======
                 
                 gameStatus.turnsPlayed++; // hier hier turn counter 
             }
->>>>>>> 36436bb65b85150f9650ffa51c0199fcb67decbc
         }
     });
 
