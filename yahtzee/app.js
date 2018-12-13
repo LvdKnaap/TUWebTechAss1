@@ -22,33 +22,39 @@ app.get("/play", indexRouter);
 
 app.use(cookies(credentials.cookieSecret));
 var sessionConfiguration = {
-	// Code is slightly adjusted to avoid deprecation warnings when running the code.
-	secret: credentials.cookieSecret,
-	resave: false,
-	saveUninitialized: true,
+    // Code is slightly adjusted to avoid deprecation warnings when running the code.
+    secret: credentials.cookieSecret,
+    resave: false,
+    saveUninitialized: true,
 };
 app.use(sessions(sessionConfiguration));
 
-app.get("/countMe", function (req, res) {
-	var session = req.session;
-	if (session.views) {
-		session.views++;
-		res.send("You have been here " + session.views + " times (last visit: " + session.lastVisit + ")");
-        session.lastVisit = new Date().toLocaleDateString();
-	}
-	else {
-		session.views = 1;
-		session.lastVisit = new Date().toLocaleDateString();
-        res.send("This is your first visit!");
-	}
-});
-
-
-
+// app.get("/countMe", function (req, res) {
+//     var session = req.session;
+//     if (session.views) {
+//         session.views++;
+//         session.lastVisit = new Date().toLocaleDateString();
+//     }
+//     else {
+//         session.views = 1;
+//         session.lastVisit = new Date().toLocaleDateString();
+//     }
+// });
 
 //TODO: move to routes/index
 app.get("/", (req, res) => {
-    res.render("splash.ejs", { gamesInitialized: gameStatus.gamesInitialized, gamesCompleted: gameStatus.gamesCompleted, turnsPlayed: gameStatus.turnsPlayed, currWaiting: gameStatus.currWaiting });
+    var session = req.session;
+    if (session.views) {
+        session.views++;
+        session.lastVisit = new Date().toLocaleDateString();
+    }
+    else {
+        session.views = 1;
+        session.lastVisit = new Date().toLocaleDateString();
+    }
+    cookiez = session.views;
+    gameStatus.cookiez++;
+    res.render("splash.ejs", { cookiez: gameStatus.cookiez, gamesInitialized: gameStatus.gamesInitialized, gamesCompleted: gameStatus.gamesCompleted, turnsPlayed: gameStatus.turnsPlayed, currWaiting: gameStatus.currWaiting });
 });
 
 var server = http.createServer(app);
@@ -101,7 +107,7 @@ wss.on("connection", function connection(ws) {
      * if a player now leaves, the game is aborted (player is not preplaced)
      */
     if (currentGame.hasTwoConnectedPlayers()) {
-        currentGame = new Game(gameStatus.gamesInitialized++, gameStatus.currWaiting = gameStatus.currWaiting-2);
+        currentGame = new Game(gameStatus.gamesInitialized++, gameStatus.currWaiting = gameStatus.currWaiting - 2);
     }
 
     /*
@@ -129,7 +135,7 @@ wss.on("connection", function connection(ws) {
                 if (gameObj.hasTwoConnectedPlayers()) {
                     gameObj.playerA.send(message);
                 }
- 
+
             }
 
             if (oMsg.type == messages.T_ZEROTURN) {
@@ -143,7 +149,7 @@ wss.on("connection", function connection(ws) {
                 gameObj.playerB.send(message);
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));
-                
+
                 gameStatus.turnsPlayed++; // hier hier turn counter 
             }
             /*
@@ -171,7 +177,7 @@ wss.on("connection", function connection(ws) {
                 gameObj.playerA.send(message);
                 gameObj.setStatus("MADE A TURN");
                 console.log(gameObj.setStatus("MADE A TURN"));
-                
+
                 gameStatus.turnsPlayed++; // hier hier turn counter 
             }
         }

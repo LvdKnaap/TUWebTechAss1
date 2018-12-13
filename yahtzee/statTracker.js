@@ -9,8 +9,8 @@ var gameStatus = {
     gamesAborted : 0,       /* number of games aborted */
     gamesCompleted : 0,      /* number of games successfully completed */
     turnsPlayed : 0,
-    currWaiting : 0
-
+    currWaiting : 0,
+    cookiez: 0
 };
 
 module.exports = gameStatus;
